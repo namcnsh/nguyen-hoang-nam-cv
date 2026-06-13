@@ -658,6 +658,91 @@
         display: none !important;
       }
     }
+
+    /* SVG Animations for AI Nodes & Funnel */
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes spin-fast {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes node-pulse-anim {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 3px var(--cyan)); }
+    }
+    .ai-node-glow {
+      transform-origin: center;
+      animation: spin-slow 12s infinite linear;
+      color: var(--cyan);
+    }
+    .ai-stack:hover .ai-node-glow {
+      animation: spin-fast 3s infinite linear;
+    }
+    .pulse-node {
+      transform-origin: center;
+      animation: node-pulse-anim 2s infinite ease-in-out;
+    }
+
+    /* Funnel Particles Flow */
+    @keyframes funnel-flow-1 {
+      0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translate3d(0, 72px, 0) scale(0.5); opacity: 0; }
+    }
+    @keyframes funnel-flow-2 {
+      0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: translate3d(8px, 30px, 0) scale(0.8); }
+      90% { opacity: 1; }
+      100% { transform: translate3d(12px, 72px, 0) scale(0.5); opacity: 0; }
+    }
+    @keyframes funnel-flow-3 {
+      0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: translate3d(-8px, 30px, 0) scale(0.8); }
+      90% { opacity: 1; }
+      100% { transform: translate3d(-12px, 72px, 0) scale(0.5); opacity: 0; }
+    }
+    .funnel-particle-1 {
+      transform-origin: center;
+      animation: funnel-flow-1 2.4s infinite linear;
+    }
+    .funnel-particle-2 {
+      transform-origin: center;
+      animation: funnel-flow-2 2.4s infinite linear 0.8s;
+    }
+    .funnel-particle-3 {
+      transform-origin: center;
+      animation: funnel-flow-3 2.4s infinite linear 1.6s;
+    }
+    .funnel-glow path {
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+    .project-card:hover .funnel-glow path {
+      filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.45));
+      opacity: 0.95;
+    }
+
+    /* AI Bubble Brain Animation */
+    @keyframes synapse-glow {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.3); fill: var(--cyan); }
+    }
+    @keyframes float-brain {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(3deg); }
+    }
+    .synapse {
+      transform-origin: center;
+      animation: synapse-glow 1.8s infinite ease-in-out;
+    }
+    .ai-bubble-brain {
+      transform-origin: center;
+      animation: float-brain 4s infinite ease-in-out;
+    }
   </style>
   <noscript>
     <style>
@@ -755,7 +840,17 @@
           <div class="ai-stack-title">
             <div style="display: flex; align-items: center; gap: 12px;">
               <h3>AI Marketing Workflow</h3>
-              <lottie-player id="ai-thinking-player" src="https://assets10.lottiefiles.com/packages/lf20_gdg18tpg.json" background="transparent" speed="1" style="width: 38px; height: 38px;" loop autoplay></lottie-player>
+              <svg id="ai-thinking-node" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="ai-node-glow" aria-hidden="true">
+                <path d="M12 2v20M17 5H7M21 12H3" opacity="0.25" stroke="var(--cyan)" />
+                <circle cx="12" cy="12" r="4.5" stroke="var(--cyan)" stroke-width="2" />
+                <circle cx="12" cy="12" r="1.5" fill="var(--cyan)" />
+                <circle cx="7" cy="5" r="2.2" fill="var(--purple)" class="pulse-node" style="animation-delay: 0.2s;" />
+                <circle cx="17" cy="5" r="2.2" fill="var(--purple)" class="pulse-node" style="animation-delay: 0.6s;" />
+                <circle cx="3" cy="12" r="2.2" fill="var(--cyan)" class="pulse-node" style="animation-delay: 0.4s;" />
+                <circle cx="21" cy="12" r="2.2" fill="var(--cyan)" class="pulse-node" style="animation-delay: 0.8s;" />
+                <circle cx="7" cy="19" r="2.2" fill="var(--purple)" class="pulse-node" style="animation-delay: 0.1s;" />
+                <circle cx="17" cy="19" r="2.2" fill="var(--purple)" class="pulse-node" style="animation-delay: 0.5s;" />
+              </svg>
             </div>
             <span class="chip">AI-ready</span>
           </div>
@@ -953,7 +1048,39 @@
             <p>Tổng hợp dữ liệu, theo dõi chỉ số và hỗ trợ ra quyết định tối ưu quảng cáo dựa trên CPC, CTR, CPM, chi phí, lead và tỷ lệ chuyển đổi.</p>
             <!-- Lottie Funnel animation -->
             <div class="funnel-container" style="display: flex; justify-content: center; margin: 18px 0;">
-              <lottie-player id="funnel-player" src="https://assets5.lottiefiles.com/packages/lf20_qp1a798c.json" background="transparent" speed="0.8" style="width: 140px; height: 140px;" loop autoplay></lottie-player>
+              <svg id="funnel-player" width="140" height="140" viewBox="0 0 100 100" class="funnel-glow" style="margin: auto; display: block;" aria-hidden="true">
+                <defs>
+                  <linearGradient id="funnel-grad-1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0.3" />
+                  </linearGradient>
+                  <linearGradient id="funnel-grad-2" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="var(--purple)" stop-opacity="0.3" />
+                  </linearGradient>
+                  <linearGradient id="funnel-grad-3" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#ec4899" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="#ec4899" stop-opacity="0.3" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Funnel Top Stage -->
+                <path d="M10,22 L90,22 L78,39 L22,39 Z" fill="url(#funnel-grad-1)" />
+                <text x="50" y="32" fill="#effcff" font-size="4.8" font-weight="900" text-anchor="middle" letter-spacing="0.05em">AWARENESS (CPC/CTR)</text>
+
+                <!-- Funnel Mid Stage -->
+                <path d="M24,43 L76,43 L66,60 L34,60 Z" fill="url(#funnel-grad-2)" />
+                <text x="50" y="53" fill="#effcff" font-size="4.8" font-weight="900" text-anchor="middle" letter-spacing="0.05em">LEADS (CPL)</text>
+
+                <!-- Funnel Bottom Stage -->
+                <path d="M36,64 L64,64 L56,81 L44,81 Z" fill="url(#funnel-grad-3)" />
+                <text x="50" y="74" fill="#effcff" font-size="4.8" font-weight="900" text-anchor="middle" letter-spacing="0.05em">SALES (ROAS)</text>
+
+                <!-- Flowing particles (AI Data Flows) -->
+                <circle cx="50" cy="14" r="1.5" fill="var(--cyan)" class="funnel-particle-1" />
+                <circle cx="38" cy="14" r="1.2" fill="var(--purple)" class="funnel-particle-2" />
+                <circle cx="62" cy="14" r="1.2" fill="var(--purple)" class="funnel-particle-3" />
+              </svg>
             </div>
             <div class="tool-row"><span class="tool">Excel</span><span class="tool">Google Analytics</span><span class="tool">Ads Data</span><span class="tool">Dashboard</span></div>
           </article>
@@ -1054,19 +1181,27 @@
   <div id="ai-bubble" class="ai-bubble">
     <div class="ai-bubble-inner">
       <span class="ai-bubble-glow"></span>
-      <!-- Glowing intelligence nodes SVG fallback -->
-      <svg class="ai-bubble-fallback" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--cyan)" stroke-width="2" style="position: absolute; z-index: 1;">
-        <path d="M12 2a5 5 0 0 1 5 5c0 1.5-.75 2.5-1.5 3.5S14 12.5 14 14v1h-4v-1c0-1.5-.5-2.5-1.5-3.5S7 8.5 7 7a5 5 0 0 1 5-5z"></path>
-        <path d="M9 22h6"></path>
-        <path d="M10 18h4"></path>
+      <!-- Glowing neural brain SVG icon -->
+      <svg class="ai-bubble-brain" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="var(--cyan)" stroke-width="1.8" style="position: relative; z-index: 2;" aria-hidden="true">
+        <!-- Left Hemisphere -->
+        <path d="M12 5a3 3 0 0 0-3-3 3.5 3.5 0 0 0-3.5 3.5 2.5 2.5 0 0 0-1.5 2.3c0 1.2.8 2 1.7 2.2 0 .8.5 1.5 1.3 1.8.2.8.8 1.5 1.7 1.7.5.5 1.3.5 1.8 0h1.5" stroke-dasharray="100" class="brain-path" />
+        <!-- Right Hemisphere -->
+        <path d="M12 5a3 3 0 0 1 3-3 3.5 3.5 0 0 1 3.5 3.5 2.5 2.5 0 0 1 1.5 2.3c0 1.2-.8 2-1.7 2.2 0 .8-.5 1.5-1.3 1.8-.2.8-.8 1.5-1.7 1.7-.5.5-1.3.5-1.8 0H12" stroke-dasharray="100" class="brain-path" />
+        <!-- Connective Stem -->
+        <path d="M12 14v4M10 18h4M9 21h6" stroke-width="1.5" />
+        <!-- Pulsing synapses -->
+        <circle cx="9" cy="6" r="1.1" fill="var(--cyan)" class="synapse" style="animation-delay: 0.1s;" />
+        <circle cx="15" cy="6" r="1.1" fill="var(--cyan)" class="synapse" style="animation-delay: 0.4s;" />
+        <circle cx="7" cy="9" r="0.9" fill="var(--purple)" class="synapse" style="animation-delay: 0.7s;" />
+        <circle cx="17" cy="9" r="0.9" fill="var(--purple)" class="synapse" style="animation-delay: 0.2s;" />
+        <circle cx="9" cy="12" r="1.1" fill="var(--cyan)" class="synapse" style="animation-delay: 0.5s;" />
+        <circle cx="15" cy="12" r="1.1" fill="var(--cyan)" class="synapse" style="animation-delay: 0.9s;" />
       </svg>
-      <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_9JaVsy.json" background="transparent" speed="1.2" style="width: 48px; height: 48px; position: relative; z-index: 2;" loop autoplay></lottie-player>
     </div>
     <div class="ai-bubble-tooltip">Kéo thả tôi! 🧠</div>
   </div>
 
   <!-- CDN scripts -->
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popmotion/11.0.5/popmotion.min.js"></script>
 
@@ -1111,21 +1246,7 @@
         console.error("Typewriter simulation error:", err);
       }
 
-      // 3. AI Workflow Thinking hover trigger
-      try {
-        const aiStack = document.querySelector('.ai-stack');
-        const aiPlayer = document.getElementById('ai-thinking-player');
-        if (aiStack && aiPlayer) {
-          aiStack.addEventListener('mouseenter', () => {
-            try { aiPlayer.setSpeed(2.5); } catch(e) {}
-          });
-          aiStack.addEventListener('mouseleave', () => {
-            try { aiPlayer.setSpeed(1); } catch(e) {}
-          });
-        }
-      } catch (err) {
-        console.error("Thinking hover error:", err);
-      }
+      // 3. AI Workflow Thinking hover trigger is now handled natively via CSS animations.
 
       // 4. Bento Grid / Card spring tilt mechanics
       try {
