@@ -419,13 +419,17 @@
     .footer { padding: 28px 0 42px; color: var(--muted-2); font-size: 13px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid rgba(148,163,184,.14); padding-top: 22px; }
 
-    .reveal { opacity: 0; transform: translateY(20px); animation: rise .72s ease forwards; }
-    .reveal.delay-1 { animation-delay: .08s; }
-    .reveal.delay-2 { animation-delay: .16s; }
-    .reveal.delay-3 { animation-delay: .24s; }
-    .reveal.delay-4 { animation-delay: .32s; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.delay-1 { transition-delay: .08s; }
+    .reveal.delay-2 { transition-delay: .16s; }
+    .reveal.delay-3 { transition-delay: .24s; }
+    .reveal.delay-4 { transition-delay: .32s; }
 
-    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
     @keyframes float { 0%, 100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(-16px, 18px,0); } }
     @keyframes shine { 0%, 40% { transform: translateX(-260px) rotate(22deg); } 72%, 100% { transform: translateX(760px) rotate(22deg); } }
 
@@ -459,6 +463,197 @@
       .brand-sub { display: none; }
       h1 { font-size: clamp(24px, 8vw, 36px); }
     }
+
+    /* --- Animation & Physics Custom Styles --- */
+    .terminal-prompt-wrap {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      color: var(--cyan);
+      font-size: 14px;
+      margin-bottom: 20px;
+      background: rgba(2, 6, 23, 0.45);
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .prompt-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: var(--cyan);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { background-color: transparent }
+      50% { background-color: var(--cyan) }
+    }
+
+    /* ROI Calculator Style */
+    .roi-calc-card {
+      padding: 34px;
+      margin-top: 30px;
+    }
+    .roi-calc-body {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 34px;
+      margin-top: 24px;
+      align-items: center;
+    }
+    .calc-control {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .calc-control label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .calc-control label strong {
+      color: var(--cyan-2);
+      font-size: 20px;
+    }
+    .calc-control input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(148, 163, 184, 0.24);
+      outline: none;
+    }
+    .calc-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      cursor: pointer;
+      box-shadow: 0 0 12px var(--cyan);
+      transition: transform 0.1s ease;
+    }
+    .calc-control input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+    .calc-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .calc-stat {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      text-align: center;
+      transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .stat-number {
+      display: block;
+      color: #effcff;
+      font-size: 32px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+    .roi-svg-chart {
+      grid-column: span 2;
+      width: 100%;
+      height: 100px;
+      margin-top: 15px;
+      border-radius: var(--radius-md);
+      background: rgba(2, 6, 23, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    /* Draggable AI Bubble */
+    .ai-bubble {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 64px;
+      height: 64px;
+      z-index: 1000;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+    .ai-bubble-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(125, 211, 252, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--shadow-cyan);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-bubble-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.28), transparent 70%);
+      animation: pulse-glow 2s infinite ease-in-out;
+    }
+    .ai-bubble-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(125, 211, 252, 0.3);
+      color: #effcff;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .ai-bubble:hover .ai-bubble-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(0.9); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+    }
+
+    /* Bento Grid Card Tilt Prep */
+    .glass {
+      transition: box-shadow 0.22s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    @media (max-width: 760px) {
+      .roi-calc-body {
+        grid-template-columns: 1fr;
+      }
+      .calc-results {
+        grid-template-columns: 1fr;
+      }
+      .timeline-svg-line {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -484,8 +679,11 @@
   <main id="top">
     <section class="hero">
       <div class="container hero-grid">
-        <div class="hero-copy reveal">
+        <div class="hero-copy">
           <div class="eyebrow"><span class="live-dot"></span> Performance Marketing Specialist · AI-ready Marketer</div>
+          <div class="terminal-prompt-wrap">
+            <span class="prompt-symbol">&gt;</span> <span id="typed-prompt"></span><span class="prompt-cursor"></span>
+          </div>
           <h1><span class="gradient-text">Nguyễn Hoàng Nam</span></h1>
           <p class="subtitle">Tôi xây dựng, đo lường và tối ưu các chiến dịch quảng cáo dựa trên dữ liệu — kết hợp Performance Marketing, Landing Page, Analytics và AI Tools để tạo tăng trưởng bền vững.</p>
           <div class="hero-actions">
@@ -543,7 +741,10 @@
         </article>
         <aside class="ai-stack glass reveal delay-1">
           <div class="ai-stack-title">
-            <h3>AI Marketing Workflow</h3>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <h3>AI Marketing Workflow</h3>
+              <lottie-player id="ai-thinking-player" src="https://assets10.lottiefiles.com/packages/lf20_gdg18tpg.json" background="transparent" speed="1" style="width: 38px; height: 38px;" loop autoplay></lottie-player>
+            </div>
             <span class="chip">AI-ready</span>
           </div>
           <div class="stack-list">
@@ -613,7 +814,12 @@
           </div>
           <p class="section-desc">Từ SEO, Ads, fanpage, agency đến bất động sản — kinh nghiệm trải rộng nhiều ngành hàng và kênh tăng trưởng.</p>
         </div>
-        <div class="timeline">
+        <div class="timeline" style="position: relative;">
+          <!-- SVG Timeline Googlebot Crawl Trace -->
+          <svg class="timeline-svg-line" style="position: absolute; left: 22px; top: 10px; bottom: 10px; width: 4px; height: calc(100% - 20px); overflow: visible; pointer-events: none;">
+            <line x1="2" y1="0" x2="2" y2="100%" stroke="rgba(148, 163, 184, 0.12)" stroke-width="2"></line>
+            <path id="timeline-crawl-path" d="" stroke="var(--cyan)" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="8 8"></path>
+          </svg>
           <article class="job reveal delay-1">
             <div class="node">1</div>
             <div class="job-card glass">
@@ -733,6 +939,10 @@
           <article class="project-card glass reveal delay-2">
             <h3>Dashboard báo cáo hiệu quả quảng cáo</h3>
             <p>Tổng hợp dữ liệu, theo dõi chỉ số và hỗ trợ ra quyết định tối ưu quảng cáo dựa trên CPC, CTR, CPM, chi phí, lead và tỷ lệ chuyển đổi.</p>
+            <!-- Lottie Funnel animation -->
+            <div class="funnel-container" style="display: flex; justify-content: center; margin: 18px 0;">
+              <lottie-player id="funnel-player" src="https://assets5.lottiefiles.com/packages/lf20_qp1a798c.json" background="transparent" speed="0.8" style="width: 140px; height: 140px;" loop autoplay></lottie-player>
+            </div>
             <div class="tool-row"><span class="tool">Excel</span><span class="tool">Google Analytics</span><span class="tool">Ads Data</span><span class="tool">Dashboard</span></div>
           </article>
           <article class="project-card glass reveal delay-3">
@@ -744,6 +954,45 @@
             <p class="project-note">Dự án thể hiện tinh thần chủ động học hỏi, không ngại thử nghiệm công nghệ mới và luôn tìm cách ứng dụng AI để tăng tốc sản xuất creative, tối ưu quy trình làm việc và tạo thêm giá trị cho hoạt động tăng trưởng.</p>
             <div class="tool-row"><span class="tool">GPT</span><span class="tool">Claude</span><span class="tool">Agentic AI</span><span class="tool">Vibe Coding</span><span class="tool">Kling AI</span><span class="tool">Veo 3</span><span class="tool">Canva</span></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive ROI Calculator Section -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="roi-calc-card glass reveal">
+          <div class="roi-calc-head">
+            <p class="section-kicker">Interactive Tool</p>
+            <h2 class="section-title">Dự báo hiệu quả tăng trưởng (ROI Calculator)</h2>
+            <p>Điều chỉnh ngân sách quảng cáo của bạn để xem lượng Lead và Doanh thu dự kiến với mô hình chuẩn của Nguyễn Hoàng Nam.</p>
+          </div>
+          <div class="roi-calc-body">
+            <div class="calc-control">
+              <label for="budget-range">Ngân sách Ads dự kiến: <strong id="budget-val">50,000,000</strong> VNĐ</label>
+              <input type="range" id="budget-range" min="10000000" max="500000000" step="5000000" value="50000000">
+            </div>
+            <div class="calc-results">
+              <div class="calc-stat">
+                <span class="stat-label">Số Lead thu về (CPL 120k)</span>
+                <strong id="lead-val" class="stat-number">417</strong>
+              </div>
+              <div class="calc-stat">
+                <span class="stat-label">Doanh thu dự kiến (ROAS 5x)</span>
+                <strong id="revenue-val" class="stat-number">250,000,000</strong>
+              </div>
+              <svg class="roi-svg-chart" viewBox="0 0 400 120">
+                <defs>
+                  <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.35"></stop>
+                    <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0"></stop>
+                  </linearGradient>
+                </defs>
+                <path id="chart-area" d="M 0 120 L 0 120 L 400 120 Z" fill="url(#chart-grad)"></path>
+                <path id="chart-line" d="M 0 120 Q 200 120 400 120" fill="none" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round"></path>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -788,5 +1037,336 @@
       <span>Built for Performance · Data · AI Marketing</span>
     </div>
   </footer>
+
+  <!-- Floating AI Assistant Bubble -->
+  <div id="ai-bubble" class="ai-bubble">
+    <div class="ai-bubble-inner">
+      <span class="ai-bubble-glow"></span>
+      <!-- Glowing intelligence nodes SVG fallback -->
+      <svg class="ai-bubble-fallback" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--cyan)" stroke-width="2" style="position: absolute; z-index: 1;">
+        <path d="M12 2a5 5 0 0 1 5 5c0 1.5-.75 2.5-1.5 3.5S14 12.5 14 14v1h-4v-1c0-1.5-.5-2.5-1.5-3.5S7 8.5 7 7a5 5 0 0 1 5-5z"></path>
+        <path d="M9 22h6"></path>
+        <path d="M10 18h4"></path>
+      </svg>
+      <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_9JaVsy.json" background="transparent" speed="1.2" style="width: 48px; height: 48px; position: relative; z-index: 2;" loop autoplay></lottie-player>
+    </div>
+    <div class="ai-bubble-tooltip">Kéo thả tôi! 🧠</div>
+  </div>
+
+  <!-- CDN scripts -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://unpkg.com/popmotion/dist/popmotion.global.min.js"></script>
+
+  <!-- Animation & Interaction scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Reveal observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // 2. Vibe Coding Typing prompt in Hero Section
+      const promptText = "Build me an AI Agent to auto-optimize TikTok Ads budget...";
+      const typedPrompt = document.getElementById('typed-prompt');
+      let charIndex = 0;
+      
+      // Hide hero elements initially for transition
+      const heroEls = document.querySelectorAll('.hero-copy h1, .hero-copy .subtitle, .hero-actions, .quick-tags, .metric-card');
+      heroEls.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'none'; // handoff to anime.js
+      });
+
+      function typeChar() {
+        if (!typedPrompt) return;
+        if (charIndex < promptText.length) {
+          typedPrompt.textContent += promptText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, 40 + Math.random() * 40);
+        } else {
+          // Trigger staggered wave
+          anime({
+            targets: heroEls,
+            opacity: [0, 1],
+            translateY: [30, 0],
+            delay: anime.stagger(120),
+            duration: 1200,
+            easing: 'cubicBezier(0.16, 1, 0.3, 1)',
+            complete: () => {
+              // restore default style transitions if needed
+              heroEls.forEach(el => { el.style.transition = ''; });
+            }
+          });
+        }
+      }
+      setTimeout(typeChar, 500);
+
+      // 3. AI Workflow Thinking hover trigger
+      const aiStack = document.querySelector('.ai-stack');
+      const aiPlayer = document.getElementById('ai-thinking-player');
+      if (aiStack && aiPlayer) {
+        aiStack.addEventListener('mouseenter', () => aiPlayer.setSpeed(2.5));
+        aiStack.addEventListener('mouseleave', () => aiPlayer.setSpeed(1));
+      }
+
+      // 4. Bento Grid / Card spring tilt mechanics
+      document.querySelectorAll('.glass').forEach(card => {
+        let cardAnim;
+        card.addEventListener('mousemove', (e) => {
+          if (cardAnim) cardAnim.stop();
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xc = rect.width / 2;
+          const yc = rect.height / 2;
+          const rx = -((y - yc) / yc) * 5;
+          const ry = ((x - xc) / xc) * 5;
+          card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          // Spring back smoothly
+          const transformStr = card.style.transform;
+          const matchX = transformStr.match(/rotateX\(([-\d.]+)deg\)/);
+          const matchY = transformStr.match(/rotateY\(([-\d.]+)deg\)/);
+          const currentRx = matchX ? parseFloat(matchX[1]) : 0;
+          const currentRy = matchY ? parseFloat(matchY[1]) : 0;
+
+          cardAnim = popmotion.animate({
+            from: { rx: currentRx, ry: currentRy, scale: 1.02 },
+            to: { rx: 0, ry: 0, scale: 1 },
+            type: 'spring',
+            stiffness: 140,
+            damping: 15,
+            onUpdate: (latest) => {
+              card.style.transform = `perspective(1000px) rotateX(${latest.rx}deg) rotateY(${latest.ry}deg) scale(${latest.scale})`;
+            },
+            onComplete: () => {
+              card.style.transform = '';
+            }
+          });
+        });
+      });
+
+      // 5. Timeline SVG Crawl Trace Observer & updates
+      const timeline = document.querySelector('.timeline');
+      const crawlPath = document.getElementById('timeline-crawl-path');
+      const timelineSvg = document.querySelector('.timeline-svg-line');
+      
+      function updateTimelineCrawl() {
+        if (!timeline || !crawlPath || !timelineSvg) return;
+        const height = timeline.offsetHeight;
+        timelineSvg.style.height = `${height}px`;
+        crawlPath.setAttribute('d', `M 2 0 L 2 ${height}`);
+        const pathLength = height;
+        crawlPath.style.strokeDasharray = pathLength;
+        crawlPath.style.strokeDashoffset = pathLength;
+      }
+      
+      if (timeline) {
+        window.addEventListener('resize', updateTimelineCrawl);
+        updateTimelineCrawl();
+
+        window.addEventListener('scroll', () => {
+          const rect = timeline.getBoundingClientRect();
+          const viewHeight = window.innerHeight;
+          const totalDist = rect.height;
+          const scrolledDist = viewHeight / 2 - rect.top;
+          let progress = scrolledDist / totalDist;
+          progress = Math.max(0, Math.min(1, progress));
+          crawlPath.style.strokeDashoffset = rect.height * (1 - progress);
+        });
+      }
+
+      // 6. Interactive ROI Calculator with Popmotion springs
+      const budgetRange = document.getElementById('budget-range');
+      const budgetVal = document.getElementById('budget-val');
+      const leadVal = document.getElementById('lead-val');
+      const revenueVal = document.getElementById('revenue-val');
+      const calcChartLine = document.getElementById('chart-line');
+      const calcChartArea = document.getElementById('chart-area');
+      
+      let currentBudget = 50000000;
+      let currentLeads = 417;
+      let currentRevenue = 250000000;
+      let leadsAnim, revAnim;
+      
+      function formatNum(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      
+      function updateCalculator(targetBudget, animateStats = true) {
+        const targetLeads = Math.round(targetBudget / 120000);
+        const targetRevenue = targetBudget * 5;
+        
+        budgetVal.textContent = formatNum(targetBudget);
+        
+        const pct = targetBudget / 500000000;
+        const peakY = 120 - pct * 100;
+        calcChartLine.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120`);
+        calcChartArea.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120 L 400 120 L 0 120 Z`);
+        
+        if (!animateStats) {
+          leadVal.textContent = formatNum(targetLeads);
+          revenueVal.textContent = formatNum(targetRevenue);
+          currentLeads = targetLeads;
+          currentRevenue = targetRevenue;
+          return;
+        }
+        
+        if (leadsAnim) leadsAnim.stop();
+        if (revAnim) revAnim.stop();
+        
+        leadsAnim = popmotion.animate({
+          from: currentLeads,
+          to: targetLeads,
+          type: 'spring',
+          stiffness: 100,
+          damping: 14,
+          onUpdate: (val) => {
+            leadVal.textContent = formatNum(Math.round(val));
+            currentLeads = Math.round(val);
+          }
+        });
+        
+        revAnim = popmotion.animate({
+          from: currentRevenue,
+          to: targetRevenue,
+          type: 'spring',
+          stiffness: 100,
+          damping: 14,
+          onUpdate: (val) => {
+            revenueVal.textContent = formatNum(Math.round(val));
+            currentRevenue = Math.round(val);
+          }
+        });
+        
+        // elastic visual bounce on update
+        document.querySelectorAll('.calc-stat').forEach(card => {
+          card.style.transform = 'scale(0.96)';
+          setTimeout(() => { card.style.transform = ''; }, 100);
+        });
+      }
+      
+      if (budgetRange) {
+        budgetRange.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value);
+          updateCalculator(val, true);
+        });
+        updateCalculator(50000000, false);
+      }
+
+      // Draw SVG chart line when scrolled into view
+      const calcObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            calcChartLine.style.strokeDasharray = anime.setDasharray(calcChartLine);
+            calcChartLine.style.strokeDashoffset = anime.setDasharray(calcChartLine);
+            anime({
+              targets: calcChartLine,
+              strokeDashoffset: [anime.setDasharray(calcChartLine), 0],
+              easing: 'easeOutSine',
+              duration: 1500,
+              delay: 200
+            });
+            calcObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      const calcSection = document.getElementById('calculator');
+      if (calcSection) calcObserver.observe(calcSection);
+
+      // 7. Draggable floating AI Agent bubble
+      const bubble = document.getElementById('ai-bubble');
+      let isDragging = false;
+      let startX = 0, startY = 0;
+      let posX = 0, posY = 0;
+      let dragAnim;
+      
+      function startDrag(clientX, clientY) {
+        isDragging = true;
+        if (dragAnim) dragAnim.stop();
+        bubble.style.cursor = 'grabbing';
+        bubble.querySelector('.ai-bubble-tooltip').style.opacity = '0';
+        startX = clientX - posX;
+        startY = clientY - posY;
+      }
+      
+      function moveDrag(clientX, clientY) {
+        if (!isDragging) return;
+        posX = clientX - startX;
+        posY = clientY - startY;
+        bubble.style.transform = `translate(${posX}px, ${posY}px)`;
+      }
+      
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        bubble.style.cursor = 'grab';
+        bubble.querySelector('.ai-bubble-tooltip').style.opacity = '';
+        
+        const rect = bubble.getBoundingClientRect();
+        const pad = 24;
+        const wWidth = window.innerWidth;
+        const wHeight = window.innerHeight;
+        
+        const bubbleOrigX = wWidth - 24 - 64;
+        const bubbleOrigY = wHeight - 24 - 64;
+        
+        let absX = bubbleOrigX + posX;
+        let absY = bubbleOrigY + posY;
+        
+        let targetAbsX = Math.max(pad, Math.min(wWidth - pad - 64, absX));
+        let targetAbsY = Math.max(pad, Math.min(wHeight - pad - 64, absY));
+        
+        // Snap bubble to nearest left/right screen edge
+        if (targetAbsX < wWidth / 2) {
+          targetAbsX = pad;
+        } else {
+          targetAbsX = wWidth - pad - 64;
+        }
+        
+        const targetPosX = targetAbsX - bubbleOrigX;
+        const targetPosY = targetAbsY - bubbleOrigY;
+        
+        dragAnim = popmotion.animate({
+          from: { x: posX, y: posY },
+          to: { x: targetPosX, y: targetPosY },
+          type: 'spring',
+          stiffness: 200,
+          damping: 18,
+          onUpdate: (latest) => {
+            posX = latest.x;
+            posY = latest.y;
+            bubble.style.transform = `translate(${posX}px, ${posY}px)`;
+          }
+        });
+      }
+      
+      if (bubble) {
+        bubble.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+        document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+        document.addEventListener('mouseup', endDrag);
+        
+        bubble.addEventListener('touchstart', (e) => {
+          if (e.touches.length > 0) {
+            startDrag(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        });
+        document.addEventListener('touchmove', (e) => {
+          if (e.touches.length > 0) {
+            moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        });
+        document.addEventListener('touchend', endDrag);
+      }
+    });
+  </script>
 </body>
 </html>
