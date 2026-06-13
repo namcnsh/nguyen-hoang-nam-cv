@@ -425,6 +425,10 @@
       transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity;
     }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .reveal.delay-1 { transition-delay: .08s; }
     .reveal.delay-2 { transition-delay: .16s; }
     .reveal.delay-3 { transition-delay: .24s; }
@@ -655,6 +659,14 @@
       }
     }
   </style>
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 </head>
 <body>
   <nav class="nav">
@@ -679,7 +691,7 @@
   <main id="top">
     <section class="hero">
       <div class="container hero-grid">
-        <div class="hero-copy">
+        <div class="hero-copy reveal">
           <div class="eyebrow"><span class="live-dot"></span> Performance Marketing Specialist · AI-ready Marketer</div>
           <div class="terminal-prompt-wrap">
             <span class="prompt-symbol">&gt;</span> <span id="typed-prompt"></span><span class="prompt-cursor"></span>
@@ -1062,342 +1074,347 @@
   <script>
     function initAnimations() {
       // 1. Reveal observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, { threshold: 0.08 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-      // 2. Vibe Coding Typing prompt in Hero Section
-      const promptText = "Build me an AI Agent to auto-optimize TikTok Ads budget...";
-      const typedPrompt = document.getElementById('typed-prompt');
-      let charIndex = 0;
-      
-      // Hide hero elements initially for transition
-      const heroEls = document.querySelectorAll('.hero-copy h1, .hero-copy .subtitle, .hero-actions, .quick-tags, .metric-card');
-      heroEls.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'none'; // handoff to anime.js
-      });
-
-      function typeChar() {
-        if (!typedPrompt) return;
-        if (charIndex < promptText.length) {
-          typedPrompt.textContent += promptText.charAt(charIndex);
-          charIndex++;
-          setTimeout(typeChar, 40 + Math.random() * 40);
-        } else {
-          // Trigger staggered wave
-          if (typeof anime !== 'undefined') {
-            anime({
-              targets: heroEls,
-              opacity: [0, 1],
-              translateY: [30, 0],
-              delay: anime.stagger(120),
-              duration: 1200,
-              easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-              complete: () => {
-                heroEls.forEach(el => { el.style.transition = ''; });
+      try {
+        if (typeof IntersectionObserver !== 'undefined') {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('active');
               }
             });
-          } else {
-            // Fallback if anime failed to load
-            heroEls.forEach(el => {
-              el.style.opacity = '1';
-              el.style.transform = 'translateY(0)';
-              el.style.transition = '';
-            });
+          }, { threshold: 0.08 });
+          document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        } else {
+          document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+        }
+      } catch (err) {
+        console.error("Reveal observer error:", err);
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+      }
+
+      // 2. Vibe Coding Typing prompt
+      try {
+        const promptText = "Build me an AI Agent to auto-optimize TikTok Ads budget...";
+        const typedPrompt = document.getElementById('typed-prompt');
+        let charIndex = 0;
+        
+        function typeChar() {
+          if (!typedPrompt) return;
+          if (charIndex < promptText.length) {
+            typedPrompt.textContent += promptText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeChar, 40 + Math.random() * 40);
           }
         }
+        setTimeout(typeChar, 400);
+      } catch (err) {
+        console.error("Typewriter simulation error:", err);
       }
-      setTimeout(typeChar, 500);
 
       // 3. AI Workflow Thinking hover trigger
-      const aiStack = document.querySelector('.ai-stack');
-      const aiPlayer = document.getElementById('ai-thinking-player');
-      if (aiStack && aiPlayer) {
-        aiStack.addEventListener('mouseenter', () => {
-          try { aiPlayer.setSpeed(2.5); } catch(e) {}
-        });
-        aiStack.addEventListener('mouseleave', () => {
-          try { aiPlayer.setSpeed(1); } catch(e) {}
-        });
+      try {
+        const aiStack = document.querySelector('.ai-stack');
+        const aiPlayer = document.getElementById('ai-thinking-player');
+        if (aiStack && aiPlayer) {
+          aiStack.addEventListener('mouseenter', () => {
+            try { aiPlayer.setSpeed(2.5); } catch(e) {}
+          });
+          aiStack.addEventListener('mouseleave', () => {
+            try { aiPlayer.setSpeed(1); } catch(e) {}
+          });
+        }
+      } catch (err) {
+        console.error("Thinking hover error:", err);
       }
 
       // 4. Bento Grid / Card spring tilt mechanics
-      document.querySelectorAll('.glass').forEach(card => {
-        let cardAnim;
-        card.addEventListener('mousemove', (e) => {
-          if (cardAnim) cardAnim.stop();
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const xc = rect.width / 2;
-          const yc = rect.height / 2;
-          const rx = -((y - yc) / yc) * 5;
-          const ry = ((x - xc) / xc) * 5;
-          card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          if (typeof popmotion === 'undefined') {
-            card.style.transform = '';
-            return;
-          }
-          const transformStr = card.style.transform;
-          const matchX = transformStr.match(/rotateX\(([-\d.]+)deg\)/);
-          const matchY = transformStr.match(/rotateY\(([-\d.]+)deg\)/);
-          const currentRx = matchX ? parseFloat(matchX[1]) : 0;
-          const currentRy = matchY ? parseFloat(matchY[1]) : 0;
-
-          cardAnim = popmotion.animate({
-            from: { rx: currentRx, ry: currentRy, scale: 1.02 },
-            to: { rx: 0, ry: 0, scale: 1 },
-            type: 'spring',
-            stiffness: 140,
-            damping: 15,
-            onUpdate: (latest) => {
-              card.style.transform = `perspective(1000px) rotateX(${latest.rx}deg) rotateY(${latest.ry}deg) scale(${latest.scale})`;
-            },
-            onComplete: () => {
+      try {
+        document.querySelectorAll('.glass').forEach(card => {
+          let cardAnim;
+          card.addEventListener('mousemove', (e) => {
+            if (cardAnim) cardAnim.stop();
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const xc = rect.width / 2;
+            const yc = rect.height / 2;
+            const rx = -((y - yc) / yc) * 5;
+            const ry = ((x - xc) / xc) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+          });
+          card.addEventListener('mouseleave', () => {
+            if (typeof popmotion === 'undefined') {
               card.style.transform = '';
+              return;
             }
+            const transformStr = card.style.transform;
+            const matchX = transformStr.match(/rotateX\(([-\d.]+)deg\)/);
+            const matchY = transformStr.match(/rotateY\(([-\d.]+)deg\)/);
+            const currentRx = matchX ? parseFloat(matchX[1]) : 0;
+            const currentRy = matchY ? parseFloat(matchY[1]) : 0;
+
+            cardAnim = popmotion.animate({
+              from: { rx: currentRx, ry: currentRy, scale: 1.02 },
+              to: { rx: 0, ry: 0, scale: 1 },
+              type: 'spring',
+              stiffness: 140,
+              damping: 15,
+              onUpdate: (latest) => {
+                card.style.transform = `perspective(1000px) rotateX(${latest.rx}deg) rotateY(${latest.ry}deg) scale(${latest.scale})`;
+              },
+              onComplete: () => {
+                card.style.transform = '';
+              }
+            });
           });
         });
-      });
+      } catch (err) {
+        console.error("Bento tilt error:", err);
+      }
 
       // 5. Timeline SVG Crawl Trace Observer & updates
-      const timeline = document.querySelector('.timeline');
-      const crawlPath = document.getElementById('timeline-crawl-path');
-      const timelineSvg = document.querySelector('.timeline-svg-line');
-      
-      function updateTimelineCrawl() {
-        if (!timeline || !crawlPath || !timelineSvg) return;
-        const height = timeline.offsetHeight;
-        timelineSvg.style.height = `${height}px`;
-        crawlPath.setAttribute('d', `M 2 0 L 2 ${height}`);
-        const pathLength = height;
-        crawlPath.style.strokeDasharray = pathLength;
-        crawlPath.style.strokeDashoffset = pathLength;
-      }
-      
-      if (timeline) {
-        window.addEventListener('resize', updateTimelineCrawl);
-        updateTimelineCrawl();
+      try {
+        const timeline = document.querySelector('.timeline');
+        const crawlPath = document.getElementById('timeline-crawl-path');
+        const timelineSvg = document.querySelector('.timeline-svg-line');
+        
+        function updateTimelineCrawl() {
+          if (!timeline || !crawlPath || !timelineSvg) return;
+          const height = timeline.offsetHeight;
+          timelineSvg.style.height = `${height}px`;
+          crawlPath.setAttribute('d', `M 2 0 L 2 ${height}`);
+          const pathLength = height;
+          crawlPath.style.strokeDasharray = pathLength;
+          crawlPath.style.strokeDashoffset = pathLength;
+        }
+        
+        if (timeline) {
+          window.addEventListener('resize', updateTimelineCrawl);
+          updateTimelineCrawl();
 
-        window.addEventListener('scroll', () => {
-          const rect = timeline.getBoundingClientRect();
-          const viewHeight = window.innerHeight;
-          const totalDist = rect.height;
-          const scrolledDist = viewHeight / 2 - rect.top;
-          let progress = scrolledDist / totalDist;
-          progress = Math.max(0, Math.min(1, progress));
-          crawlPath.style.strokeDashoffset = rect.height * (1 - progress);
-        });
+          window.addEventListener('scroll', () => {
+            const rect = timeline.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+            const totalDist = rect.height;
+            const scrolledDist = viewHeight / 2 - rect.top;
+            let progress = scrolledDist / totalDist;
+            progress = Math.max(0, Math.min(1, progress));
+            crawlPath.style.strokeDashoffset = rect.height * (1 - progress);
+          });
+        }
+      } catch (err) {
+        console.error("Timeline crawl error:", err);
       }
 
       // 6. Interactive ROI Calculator with Popmotion springs
-      const budgetRange = document.getElementById('budget-range');
-      const budgetVal = document.getElementById('budget-val');
-      const leadVal = document.getElementById('lead-val');
-      const revenueVal = document.getElementById('revenue-val');
-      const calcChartLine = document.getElementById('chart-line');
-      const calcChartArea = document.getElementById('chart-area');
-      
-      let currentBudget = 50000000;
-      let currentLeads = 417;
-      let currentRevenue = 250000000;
-      let leadsAnim, revAnim;
-      
-      function formatNum(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-      
-      function updateCalculator(targetBudget, animateStats = true) {
-        const targetLeads = Math.round(targetBudget / 120000);
-        const targetRevenue = targetBudget * 5;
+      try {
+        const budgetRange = document.getElementById('budget-range');
+        const budgetVal = document.getElementById('budget-val');
+        const leadVal = document.getElementById('lead-val');
+        const revenueVal = document.getElementById('revenue-val');
+        const calcChartLine = document.getElementById('chart-line');
+        const calcChartArea = document.getElementById('chart-area');
         
-        budgetVal.textContent = formatNum(targetBudget);
+        let currentBudget = 50000000;
+        let currentLeads = 417;
+        let currentRevenue = 250000000;
+        let leadsAnim, revAnim;
         
-        const pct = targetBudget / 500000000;
-        const peakY = 120 - pct * 100;
-        calcChartLine.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120`);
-        calcChartArea.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120 L 400 120 L 0 120 Z`);
-        
-        if (!animateStats) {
-          leadVal.textContent = formatNum(targetLeads);
-          revenueVal.textContent = formatNum(targetRevenue);
-          currentLeads = targetLeads;
-          currentRevenue = targetRevenue;
-          return;
+        function formatNum(num) {
+          return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         
-        if (typeof popmotion === 'undefined') {
-          leadVal.textContent = formatNum(targetLeads);
-          revenueVal.textContent = formatNum(targetRevenue);
-          currentLeads = targetLeads;
-          currentRevenue = targetRevenue;
-          return;
-        }
-
-        if (leadsAnim) leadsAnim.stop();
-        if (revAnim) revAnim.stop();
-        
-        leadsAnim = popmotion.animate({
-          from: currentLeads,
-          to: targetLeads,
-          type: 'spring',
-          stiffness: 100,
-          damping: 14,
-          onUpdate: (val) => {
-            leadVal.textContent = formatNum(Math.round(val));
-            currentLeads = Math.round(val);
+        function updateCalculator(targetBudget, animateStats = true) {
+          const targetLeads = Math.round(targetBudget / 120000);
+          const targetRevenue = targetBudget * 5;
+          
+          budgetVal.textContent = formatNum(targetBudget);
+          
+          const pct = targetBudget / 500000000;
+          const peakY = 120 - pct * 100;
+          calcChartLine.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120`);
+          calcChartArea.setAttribute('d', `M 0 120 Q 200 ${peakY} 400 120 L 400 120 L 0 120 Z`);
+          
+          if (!animateStats) {
+            leadVal.textContent = formatNum(targetLeads);
+            revenueVal.textContent = formatNum(targetRevenue);
+            currentLeads = targetLeads;
+            currentRevenue = targetRevenue;
+            return;
           }
-        });
-        
-        revAnim = popmotion.animate({
-          from: currentRevenue,
-          to: targetRevenue,
-          type: 'spring',
-          stiffness: 100,
-          damping: 14,
-          onUpdate: (val) => {
-            revenueVal.textContent = formatNum(Math.round(val));
-            currentRevenue = Math.round(val);
+          
+          if (typeof popmotion === 'undefined') {
+            leadVal.textContent = formatNum(targetLeads);
+            revenueVal.textContent = formatNum(targetRevenue);
+            currentLeads = targetLeads;
+            currentRevenue = targetRevenue;
+            return;
           }
-        });
-        
-        // elastic visual bounce on update
-        document.querySelectorAll('.calc-stat').forEach(card => {
-          card.style.transform = 'scale(0.96)';
-          setTimeout(() => { card.style.transform = ''; }, 100);
-        });
-      }
-      
-      if (budgetRange) {
-        budgetRange.addEventListener('input', (e) => {
-          const val = parseInt(e.target.value);
-          updateCalculator(val, true);
-        });
-        updateCalculator(50000000, false);
-      }
 
-      // Draw SVG chart line when scrolled into view
-      const calcObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (typeof anime !== 'undefined' && calcChartLine) {
-              const length = calcChartLine.getTotalLength ? calcChartLine.getTotalLength() : 400;
-              calcChartLine.style.strokeDasharray = length;
-              calcChartLine.style.strokeDashoffset = length;
-              anime({
-                targets: calcChartLine,
-                strokeDashoffset: [length, 0],
-                easing: 'easeOutSine',
-                duration: 1500,
-                delay: 200
-              });
+          if (leadsAnim) leadsAnim.stop();
+          if (revAnim) revAnim.stop();
+          
+          leadsAnim = popmotion.animate({
+            from: currentLeads,
+            to: targetLeads,
+            type: 'spring',
+            stiffness: 100,
+            damping: 14,
+            onUpdate: (val) => {
+              leadVal.textContent = formatNum(Math.round(val));
+              currentLeads = Math.round(val);
             }
-            calcObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      const calcSection = document.getElementById('calculator');
-      if (calcSection) calcObserver.observe(calcSection);
+          });
+          
+          revAnim = popmotion.animate({
+            from: currentRevenue,
+            to: targetRevenue,
+            type: 'spring',
+            stiffness: 100,
+            damping: 14,
+            onUpdate: (val) => {
+              revenueVal.textContent = formatNum(Math.round(val));
+              currentRevenue = Math.round(val);
+            }
+          });
+          
+          // elastic visual bounce on update
+          document.querySelectorAll('.calc-stat').forEach(card => {
+            card.style.transform = 'scale(0.96)';
+            setTimeout(() => { card.style.transform = ''; }, 100);
+          });
+        }
+        
+        if (budgetRange) {
+          budgetRange.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            updateCalculator(val, true);
+          });
+          updateCalculator(50000000, false);
+        }
+
+        // Draw SVG chart line when scrolled into view
+        if (typeof IntersectionObserver !== 'undefined') {
+          const calcObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                if (typeof anime !== 'undefined' && calcChartLine) {
+                  const length = calcChartLine.getTotalLength ? calcChartLine.getTotalLength() : 400;
+                  calcChartLine.style.strokeDasharray = length;
+                  calcChartLine.style.strokeDashoffset = length;
+                  anime({
+                    targets: calcChartLine,
+                    strokeDashoffset: [length, 0],
+                    easing: 'easeOutSine',
+                    duration: 1500,
+                    delay: 200
+                  });
+                }
+                calcObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.2 });
+          const calcSection = document.getElementById('calculator');
+          if (calcSection) calcObserver.observe(calcSection);
+        }
+      } catch (err) {
+        console.error("ROI calculator error:", err);
+      }
 
       // 7. Draggable floating AI Agent bubble
-      const bubble = document.getElementById('ai-bubble');
-      let isDragging = false;
-      let startX = 0, startY = 0;
-      let posX = 0, posY = 0;
-      let dragAnim;
-      
-      function startDrag(clientX, clientY) {
-        isDragging = true;
-        if (dragAnim) dragAnim.stop();
-        bubble.style.cursor = 'grabbing';
-        bubble.querySelector('.ai-bubble-tooltip').style.opacity = '0';
-        startX = clientX - posX;
-        startY = clientY - posY;
-      }
-      
-      function moveDrag(clientX, clientY) {
-        if (!isDragging) return;
-        posX = clientX - startX;
-        posY = clientY - startY;
-        bubble.style.transform = `translate(${posX}px, ${posY}px)`;
-      }
-      
-      function endDrag() {
-        if (!isDragging) return;
-        isDragging = false;
-        bubble.style.cursor = 'grab';
-        bubble.querySelector('.ai-bubble-tooltip').style.opacity = '';
+      try {
+        const bubble = document.getElementById('ai-bubble');
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let posX = 0, posY = 0;
+        let dragAnim;
         
-        const rect = bubble.getBoundingClientRect();
-        const pad = 24;
-        const wWidth = window.innerWidth;
-        const wHeight = window.innerHeight;
-        
-        const bubbleOrigX = wWidth - 24 - 64;
-        const bubbleOrigY = wHeight - 24 - 64;
-        
-        let absX = bubbleOrigX + posX;
-        let absY = bubbleOrigY + posY;
-        
-        let targetAbsX = Math.max(pad, Math.min(wWidth - pad - 64, absX));
-        let targetAbsY = Math.max(pad, Math.min(wHeight - pad - 64, absY));
-        
-        // Snap bubble to nearest left/right screen edge
-        if (targetAbsX < wWidth / 2) {
-          targetAbsX = pad;
-        } else {
-          targetAbsX = wWidth - pad - 64;
+        function startDrag(clientX, clientY) {
+          isDragging = true;
+          if (dragAnim) dragAnim.stop();
+          bubble.style.cursor = 'grabbing';
+          bubble.querySelector('.ai-bubble-tooltip').style.opacity = '0';
+          startX = clientX - posX;
+          startY = clientY - posY;
         }
         
-        const targetPosX = targetAbsX - bubbleOrigX;
-        const targetPosY = targetAbsY - bubbleOrigY;
-        
-        if (typeof popmotion === 'undefined') {
-          posX = targetPosX;
-          posY = targetPosY;
+        function moveDrag(clientX, clientY) {
+          if (!isDragging) return;
+          posX = clientX - startX;
+          posY = clientY - startY;
           bubble.style.transform = `translate(${posX}px, ${posY}px)`;
-          return;
         }
-
-        dragAnim = popmotion.animate({
-          from: { x: posX, y: posY },
-          to: { x: targetPosX, y: targetPosY },
-          type: 'spring',
-          stiffness: 200,
-          damping: 18,
-          onUpdate: (latest) => {
-            posX = latest.x;
-            posY = latest.y;
-            bubble.style.transform = `translate(${posX}px, ${posY}px)`;
-          }
-        });
-      }
-      
-      if (bubble) {
-        bubble.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
-        document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
-        document.addEventListener('mouseup', endDrag);
         
-        bubble.addEventListener('touchstart', (e) => {
-          if (e.touches.length > 0) {
-            startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        function endDrag() {
+          if (!isDragging) return;
+          isDragging = false;
+          bubble.style.cursor = 'grab';
+          bubble.querySelector('.ai-bubble-tooltip').style.opacity = '';
+          
+          const rect = bubble.getBoundingClientRect();
+          const pad = 24;
+          const wWidth = window.innerWidth;
+          const wHeight = window.innerHeight;
+          
+          const bubbleOrigX = wWidth - 24 - 64;
+          const bubbleOrigY = wHeight - 24 - 64;
+          
+          let absX = bubbleOrigX + posX;
+          let absY = bubbleOrigY + posY;
+          
+          let targetAbsX = Math.max(pad, Math.min(wWidth - pad - 64, absX));
+          let targetAbsY = Math.max(pad, Math.min(wHeight - pad - 64, absY));
+          
+          // Snap bubble to nearest left/right screen edge
+          if (targetAbsX < wWidth / 2) {
+            targetAbsX = pad;
+          } else {
+            targetAbsX = wWidth - pad - 64;
           }
-        });
-        document.addEventListener('touchmove', (e) => {
-          if (e.touches.length > 0) {
-            moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+          
+          const targetPosX = targetAbsX - bubbleOrigX;
+          const targetPosY = targetAbsY - bubbleOrigY;
+          
+          if (typeof popmotion === 'undefined') {
+            posX = targetPosX;
+            posY = targetPosY;
+            bubble.style.transform = `translate(${posX}px, ${posY}px)`;
+            return;
           }
-        });
-        document.addEventListener('touchend', endDrag);
+
+          dragAnim = popmotion.animate({
+            from: { x: posX, y: posY },
+            to: { x: targetPosX, y: targetPosY },
+            type: 'spring',
+            stiffness: 200,
+            damping: 18,
+            onUpdate: (latest) => {
+              posX = latest.x;
+              posY = latest.y;
+              bubble.style.transform = `translate(${posX}px, ${posY}px)`;
+            }
+          });
+        }
+        
+        if (bubble) {
+          bubble.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+          document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+          document.addEventListener('mouseup', endDrag);
+          
+          bubble.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+              startDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          });
+          document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+              moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          });
+          document.addEventListener('touchend', endDrag);
+        }
+      } catch (err) {
+        console.error("Draggable bubble error:", err);
       }
     }
 
