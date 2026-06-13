@@ -1056,11 +1056,11 @@
   <!-- CDN scripts -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://unpkg.com/popmotion/dist/popmotion.global.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popmotion/11.0.5/popmotion.min.js"></script>
 
   <!-- Animation & Interaction scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    function initAnimations() {
       // 1. Reveal observer
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1092,18 +1092,26 @@
           setTimeout(typeChar, 40 + Math.random() * 40);
         } else {
           // Trigger staggered wave
-          anime({
-            targets: heroEls,
-            opacity: [0, 1],
-            translateY: [30, 0],
-            delay: anime.stagger(120),
-            duration: 1200,
-            easing: 'cubicBezier(0.16, 1, 0.3, 1)',
-            complete: () => {
-              // restore default style transitions if needed
-              heroEls.forEach(el => { el.style.transition = ''; });
-            }
-          });
+          if (typeof anime !== 'undefined') {
+            anime({
+              targets: heroEls,
+              opacity: [0, 1],
+              translateY: [30, 0],
+              delay: anime.stagger(120),
+              duration: 1200,
+              easing: 'cubicBezier(0.16, 1, 0.3, 1)',
+              complete: () => {
+                heroEls.forEach(el => { el.style.transition = ''; });
+              }
+            });
+          } else {
+            // Fallback if anime failed to load
+            heroEls.forEach(el => {
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0)';
+              el.style.transition = '';
+            });
+          }
         }
       }
       setTimeout(typeChar, 500);
@@ -1112,8 +1120,12 @@
       const aiStack = document.querySelector('.ai-stack');
       const aiPlayer = document.getElementById('ai-thinking-player');
       if (aiStack && aiPlayer) {
-        aiStack.addEventListener('mouseenter', () => aiPlayer.setSpeed(2.5));
-        aiStack.addEventListener('mouseleave', () => aiPlayer.setSpeed(1));
+        aiStack.addEventListener('mouseenter', () => {
+          try { aiPlayer.setSpeed(2.5); } catch(e) {}
+        });
+        aiStack.addEventListener('mouseleave', () => {
+          try { aiPlayer.setSpeed(1); } catch(e) {}
+        });
       }
 
       // 4. Bento Grid / Card spring tilt mechanics
@@ -1131,7 +1143,10 @@
           card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
         });
         card.addEventListener('mouseleave', () => {
-          // Spring back smoothly
+          if (typeof popmotion === 'undefined') {
+            card.style.transform = '';
+            return;
+          }
           const transformStr = card.style.transform;
           const matchX = transformStr.match(/rotateX\(([-\d.]+)deg\)/);
           const matchY = transformStr.match(/rotateY\(([-\d.]+)deg\)/);
@@ -1220,6 +1235,14 @@
           return;
         }
         
+        if (typeof popmotion === 'undefined') {
+          leadVal.textContent = formatNum(targetLeads);
+          revenueVal.textContent = formatNum(targetRevenue);
+          currentLeads = targetLeads;
+          currentRevenue = targetRevenue;
+          return;
+        }
+
         if (leadsAnim) leadsAnim.stop();
         if (revAnim) revAnim.stop();
         
@@ -1266,15 +1289,18 @@
       const calcObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            calcChartLine.style.strokeDasharray = anime.setDasharray(calcChartLine);
-            calcChartLine.style.strokeDashoffset = anime.setDasharray(calcChartLine);
-            anime({
-              targets: calcChartLine,
-              strokeDashoffset: [anime.setDasharray(calcChartLine), 0],
-              easing: 'easeOutSine',
-              duration: 1500,
-              delay: 200
-            });
+            if (typeof anime !== 'undefined' && calcChartLine) {
+              const length = calcChartLine.getTotalLength ? calcChartLine.getTotalLength() : 400;
+              calcChartLine.style.strokeDasharray = length;
+              calcChartLine.style.strokeDashoffset = length;
+              anime({
+                targets: calcChartLine,
+                strokeDashoffset: [length, 0],
+                easing: 'easeOutSine',
+                duration: 1500,
+                delay: 200
+              });
+            }
             calcObserver.unobserve(entry.target);
           }
         });
@@ -1335,6 +1361,13 @@
         const targetPosX = targetAbsX - bubbleOrigX;
         const targetPosY = targetAbsY - bubbleOrigY;
         
+        if (typeof popmotion === 'undefined') {
+          posX = targetPosX;
+          posY = targetPosY;
+          bubble.style.transform = `translate(${posX}px, ${posY}px)`;
+          return;
+        }
+
         dragAnim = popmotion.animate({
           from: { x: posX, y: posY },
           to: { x: targetPosX, y: targetPosY },
@@ -1366,7 +1399,13 @@
         });
         document.addEventListener('touchend', endDrag);
       }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimations);
+    } else {
+      initAnimations();
+    }
   </script>
 </body>
 </html>
