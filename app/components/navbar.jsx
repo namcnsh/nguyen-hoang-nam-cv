@@ -14,7 +14,7 @@ function Navbar() {
           <Link
             href="/"
             className="text-[#16f2b3] text-2xl sm:text-3xl font-bold">
-            <img src="/logoseilybvn.png" alt="Logo" className="h-10 sm:h-12" />
+            <img src="/logoseilybvn.png" alt="Logo" className="h-16 sm:h-20" />
           </Link>
         </div>
 
