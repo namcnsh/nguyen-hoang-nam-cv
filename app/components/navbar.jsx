@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const navItems = [
   { href: "/#about", label: "Giới thiệu" },
@@ -13,36 +15,69 @@ const navItems = [
 ];
 
 function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <nav className="relative z-[99] bg-transparent">
-      <div className="flex flex-col gap-3 py-5 md:flex-row md:items-center md:justify-between">
-        <Link
-          href="/"
-          className="w-fit rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
-          aria-label="Về đầu trang"
-        >
-          <Image
-            src="/logoseilybvn.png"
-            alt="Logo"
-            width={160}
-            height={80}
-            className="h-16 w-auto sm:h-20"
-            priority
-          />
-        </Link>
+      <div className="py-5">
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            href="/"
+            className="w-fit rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+            aria-label="Về đầu trang"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <Image
+              src="/logoseilybvn.png"
+              alt="Logo"
+              width={160}
+              height={80}
+              className="h-14 w-auto sm:h-20"
+              priority
+            />
+          </Link>
 
-        <ul className="flex max-w-full gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[0.03] p-2 text-sm md:flex-wrap md:justify-end md:overflow-visible">
-          {navItems.map((item) => (
-            <li key={item.href} className="shrink-0">
-              <Link
-                className="block rounded-full px-3 py-2 text-white no-underline outline-none transition-colors hover:text-blue-200 hover:no-underline focus-visible:ring-2 focus-visible:ring-blue-400/60 md:px-4"
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((current) => !current)}
+            aria-label={isMenuOpen ? "Đóng menu" : "Mở menu"}
+            aria-expanded={isMenuOpen}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
+          >
+            {isMenuOpen ? <FiX size={22} aria-hidden="true" /> : <FiMenu size={22} aria-hidden="true" />}
+          </button>
+
+          <ul className="hidden gap-2 rounded-full border border-white/10 bg-white/[0.03] p-2 text-sm md:flex md:flex-wrap md:justify-end">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  className="block rounded-full px-4 py-2 text-white no-underline outline-none transition-colors hover:text-blue-200 hover:no-underline focus-visible:ring-2 focus-visible:ring-blue-400/60"
+                  href={item.href}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {isMenuOpen ? (
+          <div className="mt-4 rounded-[1.5rem] border border-white/10 bg-[#070913]/95 p-3 shadow-[0_0_40px_rgba(0,0,0,0.25)] backdrop-blur md:hidden">
+            <ul className="grid gap-2 text-sm">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    className="block rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white no-underline outline-none transition-colors hover:text-blue-200 hover:no-underline focus-visible:ring-2 focus-visible:ring-blue-400/60"
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </nav>
   );
