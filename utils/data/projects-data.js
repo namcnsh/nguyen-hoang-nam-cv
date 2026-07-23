@@ -10,7 +10,7 @@ export const projectsData = [
     },
     {
         id: 2,
-        name: 'Dashboard báo cáo hiệu quả quảng cáo',
+        name: 'Dashboard phân tích hiệu quả quảng cáo',
         description: 'Tổng hợp dữ liệu, theo dõi chỉ số và hỗ trợ ra quyết định tối ưu quảng cáo dựa trên CPC, CTR, CPM, chi phí, lead và tỷ lệ chuyển đổi.',
         tools: ['Microsoft Office', 'Google Analytics', 'Ads Data', 'Dashboard'],
         role: 'Performance Marketing Specialist',

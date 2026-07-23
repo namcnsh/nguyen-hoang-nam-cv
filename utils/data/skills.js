@@ -7,5 +7,6 @@ export const skillsData = [
   'Canva',
   'Figma',
   'Microsoft Office',
-  'Markdown'
+  'Markdown',
+  'Vibe Coding'
 ]

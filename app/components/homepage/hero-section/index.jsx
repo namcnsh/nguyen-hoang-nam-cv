@@ -73,9 +73,13 @@ function HeroSection() {
             <div className="mt-5 rounded-[1.25rem] border border-white/10 bg-[#070913]/80 p-5">
               <h2 className="text-2xl font-bold text-white">{personalData.name}</h2>
               <p className="mt-2 text-sm font-medium text-violet-200">{personalData.designation}</p>
-              <p className="mt-4 text-sm leading-6 text-slate-300">
-                {personalData.description}
-              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {focusTags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-200">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
