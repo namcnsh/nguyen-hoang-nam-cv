@@ -471,13 +471,13 @@ function DashboardDemoPageContent() {
           </div>
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-3">
-          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+        <section className="grid gap-5 lg:grid-cols-2">
+          <div className="flex h-full flex-col rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
             <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Mục tiêu & nhận xét</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Executive commentary</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">Mục tiêu: theo dõi hiệu quả theo kênh, so sánh chi phí tạo lead và xác định hướng tối ưu ngân sách.</p>
 
-            <div className="mt-6 space-y-4">
+            <div className="mt-6 grid flex-1 gap-4">
               {insights.map((item) => (
                 <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
                   <h3 className="text-lg font-semibold text-white">{item.title}</h3>
@@ -487,19 +487,12 @@ function DashboardDemoPageContent() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Đề xuất tối ưu</p>
-                <h2 className="mt-3 text-2xl font-semibold text-white">Recommended next actions</h2>
-              </div>
-              <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:text-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50">
-                <span>Xem case gốc</span>
-                <FaExternalLinkAlt size={12} aria-hidden="true" />
-              </Link>
-            </div>
+          <div className="flex h-full flex-col rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Đề xuất tối ưu</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">Recommended next actions</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-300">Các hành động ưu tiên giúp cải thiện chất lượng lead, tối ưu chi phí và kiểm soát ngân sách theo từng kênh.</p>
 
-            <div className="mt-6 space-y-4">
+            <div className="mt-6 grid flex-1 gap-4">
               {nextActions.map((item, index) => (
                 <div key={item} className="flex gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sky-300/20 bg-sky-300/10 text-sm font-semibold text-sky-100">
