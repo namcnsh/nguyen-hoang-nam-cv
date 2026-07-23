@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-      <AboutSection />
       <FeaturedCaseStudies />
+      <AboutSection />
       <Experience />
       <Skills />
       <Education />
