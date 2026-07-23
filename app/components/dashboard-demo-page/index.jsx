@@ -9,9 +9,14 @@ const metricOptions = [
   { key: "cpl", label: "Cost/Lead", suffix: "đ", description: "Chi phí tạo lead theo ngày" },
   { key: "ctr", label: "CTR", suffix: "%", description: "Tỷ lệ nhấp theo ngày" }
 ];
+const comparisonOptions = [
+  { key: "spend", label: "Ngân sách", description: "So sánh ngân sách theo kênh" },
+  { key: "leads", label: "Lead", description: "So sánh số lead theo kênh" },
+  { key: "cpl", label: "Cost/Lead", description: "So sánh chi phí/lead theo kênh" }
+];
 
 const dashboardSummary = [
-  { label: "Tổng ngân sách", value: "12.300.000đ", note: "+8,4% vs demo trước" },
+  { label: "Tổng ngân sách", value: "12,3 triệu", note: "+8,4% so với kỳ trước" },
   { label: "Tổng lead", value: "128", note: "+14 lead trong 7 ngày" },
   { label: "Cost/Lead", value: "96.000đ", note: "-7,1% vs tuần trước" },
   { label: "CTR trung bình", value: "1,86%", note: "+0,22 điểm %" },
@@ -23,6 +28,11 @@ const budgetMix = [
   { name: "Google Ads", share: 29, amount: "3.600.000đ", color: "#38bdf8" },
   { name: "TikTok Ads", share: 8, amount: "900.000đ", color: "#22c55e" }
 ];
+const channelComparison = [
+  { name: "Meta Ads", color: "#8b5cf6", spend: 7800000, leads: 82, cpl: 95000 },
+  { name: "Google Ads", color: "#38bdf8", spend: 3600000, leads: 31, cpl: 116000 },
+  { name: "TikTok Ads", color: "#22c55e", spend: 900000, leads: 15, cpl: 60000 }
+];
 
 const channelCards = [
   {
@@ -33,7 +43,7 @@ const channelCards = [
     ctr: "2,1%",
     cpl: "95.000đ",
     quality: "Lead volume mạnh nhất",
-    note: "Kênh tạo lead lớn nhất trong dữ liệu demo."
+    note: "Kênh tạo lead lớn nhất trong bảng phân tích."
   },
   {
     name: "Google Ads",
@@ -53,14 +63,14 @@ const channelCards = [
     ctr: "1,4%",
     cpl: "60.000đ",
     quality: "Chi phí/lead thấp",
-    note: "Chi phí/lead thấp trong dữ liệu demo, cần kiểm tra chất lượng lead."
+    note: "Chi phí/lead thấp trong bảng phân tích, cần kiểm tra chất lượng lead."
   }
 ];
 
 const insights = [
   {
     title: "Điểm sáng",
-    description: "Meta Ads đang đóng vai trò kênh giữ nhịp volume lead, phù hợp để duy trì độ phủ cho chiến dịch demo."
+    description: "Meta Ads đang đóng vai trò kênh giữ nhịp volume lead, phù hợp để duy trì độ phủ cho chiến dịch."
   },
   {
     title: "Điểm cần lưu ý",
@@ -68,14 +78,14 @@ const insights = [
   },
   {
     title: "Cơ hội test",
-    description: "TikTok Ads có CPL thấp trong dữ liệu demo; có thể test thêm creative ngắn để xem khả năng mở rộng."
+    description: "TikTok Ads có CPL thấp trong bảng phân tích; có thể test thêm creative ngắn để xem khả năng mở rộng."
   }
 ];
 
 const nextActions = [
   "Giữ ngân sách nền cho Meta Ads nếu chất lượng lead tiếp tục ổn định.",
   "Rà soát truy vấn tìm kiếm và cải thiện thông điệp landing page cho Google Ads.",
-  "Tạo thêm 2-3 biến thể creative ngắn cho TikTok Ads trước khi tăng ngân sách demo."
+  "Tạo thêm 2-3 biến thể creative ngắn cho TikTok Ads trước khi tăng ngân sách."
 ];
 
 const performanceSeries = {
@@ -149,6 +159,8 @@ function buildPath(values, maxValue) {
 function DashboardDemoPageContent() {
   const [activeMetric, setActiveMetric] = useState("leads");
   const [activeChannel, setActiveChannel] = useState("MetaAds");
+  const [activeComparisonMetric, setActiveComparisonMetric] = useState("spend");
+  const [activeComparisonChannel, setActiveComparisonChannel] = useState("Meta Ads");
 
   const metricData = performanceSeries[activeMetric];
 
@@ -168,6 +180,8 @@ function DashboardDemoPageContent() {
   const activePoint = metricData.rows[metricData.rows.length - 1];
   const activeChannelLabel = channelConfig[activeChannel].label;
   const activeValue = activePoint[activeChannel];
+  const comparisonMaxValue = Math.max(...channelComparison.map((item) => item[activeComparisonMetric]));
+  const activeComparisonData = channelComparison.find((item) => item.name === activeComparisonChannel) ?? channelComparison[0];
 
   const donutSegments = useMemo(() => {
     const radius = 64;
@@ -198,21 +212,21 @@ function DashboardDemoPageContent() {
         <div className="flex flex-col gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-[0_0_60px_rgba(0,0,0,0.24)] backdrop-blur xl:flex-row xl:items-center xl:justify-between xl:p-7">
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-amber-100">
-                Số liệu demo
-              </span>
               <span className="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-100">
                 Agency Performance Report
+              </span>
+              <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-medium text-emerald-100">
+                Executive Snapshot
               </span>
             </div>
             <h1 className="mt-4 text-3xl font-bold text-white md:text-5xl">
               Dashboard phân tích hiệu quả quảng cáo
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
-              Bản demo mô phỏng cách một agency hoặc team performance marketing theo dõi ngân sách, lead, CPL và hiệu quả theo từng kênh quảng cáo.
+              Bảng phân tích mô phỏng cách một agency hoặc team performance marketing theo dõi ngân sách, lead, CPL và hiệu quả theo từng kênh quảng cáo.
             </p>
             <p className="mt-3 text-sm font-medium text-sky-200">
-              Số liệu demo dùng để minh họa cách phân tích hiệu quả quảng cáo.
+              Dùng để minh họa cách đọc và phân tích hiệu quả quảng cáo.
             </p>
           </div>
 
@@ -275,7 +289,7 @@ function DashboardDemoPageContent() {
               </div>
 
               <div className="mt-6 overflow-x-auto">
-                <svg viewBox="0 0 540 260" className="h-[260px] min-w-[540px] w-full" role="img" aria-label="Biểu đồ hiệu suất theo ngày của các kênh quảng cáo trong dữ liệu demo">
+                <svg viewBox="0 0 540 260" className="h-[260px] min-w-[540px] w-full" role="img" aria-label="Biểu đồ hiệu suất theo ngày của các kênh quảng cáo">
                   <defs>
                     <linearGradient id="chart-grid" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stopColor="rgba(255,255,255,0.14)" />
@@ -338,16 +352,16 @@ function DashboardDemoPageContent() {
                   <span>Kênh đang xem: <strong className="text-white">{activeChannelLabel}</strong></span>
                 </div>
                 <p className="mt-2 text-sm leading-7 text-slate-300">
-                  Giá trị cuối kỳ: <span className="font-semibold text-white">{formatMetricValue(activeMetric, activeValue)}</span>. Đây là số liệu demo để minh họa cách đọc xu hướng hiệu suất quảng cáo.
+                  Giá trị cuối kỳ: <span className="font-semibold text-white">{formatMetricValue(activeMetric, activeValue)}</span>. Chỉ số này giúp người xem đọc nhanh xu hướng hiệu suất quảng cáo.
                 </p>
               </div>
             </div>
           </section>
 
           <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
-            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Phân bổ ngân sách demo</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Phân bổ ngân sách</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Budget allocation snapshot</h2>
-            <p className="mt-2 text-sm leading-7 text-slate-300">Tỷ trọng ngân sách giúp người xem nhanh chóng nhận ra kênh nào đang giữ vai trò chính trong kế hoạch media demo.</p>
+            <p className="mt-2 text-sm leading-7 text-slate-300">Tỷ trọng ngân sách giúp người xem nhanh chóng nhận ra kênh nào đang giữ vai trò chính trong kế hoạch media.</p>
 
             <div className="mt-6 flex flex-col items-center gap-6 rounded-[1.75rem] border border-white/10 bg-[#060b17]/80 p-5">
               <div className="relative flex h-44 w-44 items-center justify-center">
@@ -371,7 +385,7 @@ function DashboardDemoPageContent() {
                 <div className="absolute text-center">
                   <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Budget Mix</p>
                   <p className="mt-2 text-3xl font-bold text-white">100%</p>
-                  <p className="mt-1 text-xs text-slate-400">dữ liệu demo</p>
+                  <p className="mt-1 text-xs text-slate-400">media mix</p>
                 </div>
               </div>
 
@@ -393,51 +407,75 @@ function DashboardDemoPageContent() {
           </section>
         </div>
 
-        <section className="grid gap-5 lg:grid-cols-3">
-          {channelCards.map((channel) => (
-            <article key={channel.name} className="relative overflow-hidden rounded-[1.85rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_35px_rgba(0,0,0,0.18)]">
-              <div className={`absolute inset-0 bg-gradient-to-br ${channel.accent} opacity-70`} />
-              <div className="relative">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-300">Kênh quảng cáo</p>
-                    <h3 className="mt-2 text-2xl font-semibold text-white">{channel.name}</h3>
-                  </div>
-                  <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-white">
-                    {channel.quality}
-                  </span>
-                </div>
+        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.28em] text-violet-200">So sánh theo kênh</p>
+              <h2 className="mt-3 text-2xl font-semibold text-white">Interactive channel comparison</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-300">Chọn chỉ số để xem kênh nào dẫn đầu theo ngân sách, lead hoặc cost/lead.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {comparisonOptions.map((metric) => {
+                const isActive = metric.key === activeComparisonMetric;
 
-                <div className="mt-6 grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-black/15 p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-300">Spend</p>
-                    <p className="mt-2 text-xl font-semibold text-white">{channel.spend}</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/15 p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-300">Lead</p>
-                    <p className="mt-2 text-xl font-semibold text-white">{channel.leads}</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/15 p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-300">CTR</p>
-                    <p className="mt-2 text-xl font-semibold text-white">{channel.ctr}</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/15 p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-300">Cost/Lead</p>
-                    <p className="mt-2 text-xl font-semibold text-white">{channel.cpl}</p>
-                  </div>
-                </div>
+                return (
+                  <button
+                    key={metric.key}
+                    type="button"
+                    onClick={() => setActiveComparisonMetric(metric.key)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${isActive ? "border border-sky-300/30 bg-sky-300/15 text-sky-100" : "border border-white/10 bg-white/[0.04] text-slate-300 hover:text-white"}`}
+                  >
+                    {metric.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-                <p className="mt-5 text-sm leading-7 text-slate-100/90">{channel.note}</p>
-              </div>
-            </article>
-          ))}
+          <div className="mt-6 grid gap-4 xl:grid-cols-3">
+            {channelComparison.map((item) => {
+              const isActive = item.name === activeComparisonChannel;
+              const displayValue = item[activeComparisonMetric];
+              const maxValue = comparisonMaxValue || 1;
+              const widthPercent = Math.max(10, Math.round((displayValue / maxValue) * 100));
+
+              return (
+                <button key={item.name} type="button" onClick={() => setActiveComparisonChannel(item.name)} className={`text-left rounded-[1.75rem] border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${isActive ? "border-white/20 bg-white/[0.08]" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.06]"}`}>
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-lg font-semibold text-white">{item.name}</h3>
+                    <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
+                  </div>
+                  <div className="mt-4 h-3 rounded-full bg-white/5">
+                    <div className="h-full rounded-full transition-all duration-300" style={{ width: `${widthPercent}%`, backgroundColor: item.color }} />
+                  </div>
+                  <p className="mt-4 text-2xl font-bold text-white">
+                    {activeComparisonMetric === "spend"
+                      ? `${new Intl.NumberFormat("vi-VN").format(displayValue)}đ`
+                      : displayValue}
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">
+                    {activeComparisonMetric === "spend" ? "Ngân sách" : activeComparisonMetric === "leads" ? "Lead" : "Cost/Lead"}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
+            <p className="text-sm text-slate-300">
+              Kênh đang xem: <strong className="text-white">{activeComparisonChannel}</strong>
+            </p>
+            <p className="mt-2 text-sm leading-7 text-slate-300">
+              Giá trị hiện tại: <span className="font-semibold text-white">{activeComparisonMetric === "spend" ? `${new Intl.NumberFormat("vi-VN").format(activeComparisonData[activeComparisonMetric])}đ` : activeComparisonData[activeComparisonMetric]}</span>
+            </p>
+          </div>
         </section>
 
-        <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+        <section className="grid gap-5 lg:grid-cols-3">
           <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
             <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Mục tiêu & nhận xét</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Executive commentary</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-300">Mục tiêu demo: theo dõi hiệu quả theo kênh, so sánh chi phí tạo lead và xác định hướng tối ưu ngân sách.</p>
+            <p className="mt-4 text-sm leading-7 text-slate-300">Mục tiêu: theo dõi hiệu quả theo kênh, so sánh chi phí tạo lead và xác định hướng tối ưu ngân sách.</p>
 
             <div className="mt-6 space-y-4">
               {insights.map((item) => (
