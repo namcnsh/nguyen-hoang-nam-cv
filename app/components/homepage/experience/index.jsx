@@ -1,87 +1,56 @@
 // @flow strict
 
 import { experiences } from "@/utils/data/experience";
-import Image from "next/image";
 import { BsPersonWorkspace } from "react-icons/bs";
-import experience from '../../../assets/lottie/code.json';
-import AnimationLottie from "../../helper/animation-lottie";
-import GlowCard from "../../helper/glow-card";
 
 function Experience() {
   return (
-    <div id="experience" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
-      <Image
-        src="/section.svg"
-        alt="Hero"
-        width={1572}
-        height={795}
-        className="absolute top-0 -z-10"
-        loading="lazy"
-      />
-
-      <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-          <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
-            Kinh nghiệm
-          </span>
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-        </div>
+    <section id="experience" className="relative z-50 my-12 border-t border-white/10 pt-10 lg:my-24 lg:pt-14">
+      <div className="mb-8 flex items-center gap-4">
+        <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
+          Kinh nghiệm
+        </span>
+        <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
 
-      <div className="py-8 flex flex-col items-center justify-center">
-        <div className="flex justify-center items-center w-full max-w-[600px] aspect-[4/3] mb-8">
-          <AnimationLottie animationPath={experience} width="100%" height="100%" />
-        </div>
-
-        <div className="w-full max-w-3xl">
-          <div className="flex flex-col gap-6">
-            {
-              experiences.map(experience => (
-                <GlowCard key={experience.id} identifier={`experience-${experience.id}`}>
-                  <div className="p-3 relative">
-                    <Image
-                      src="/blur-23.svg"
-                      alt="Hero"
-                      width={1080}
-                      height={200}
-                      className="absolute bottom-0 opacity-80"
-                    />
-                    <div className="flex justify-center">
-                      <p className="text-xs sm:text-sm text-[#16f2b3]">
-                        {experience.duration}
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-x-8 px-3 py-5">
-                      <div className="text-violet-500 transition-all duration-300 hover:scale-125 mt-1">
-                        <BsPersonWorkspace size={36} />
-                      </div>
-                      <div className="w-full">
-                        <p className="text-base sm:text-xl mb-2 font-medium uppercase text-white">
-                          {experience.title}
-                        </p>
-                        <p className="text-sm sm:text-base text-gray-300 mb-4">
-                          {experience.company}
-                        </p>
-                        {experience.details && (
-                          <ul className="list-disc list-outside text-xs sm:text-sm text-gray-400 space-y-1.5 pl-5">
-                            {experience.details.map((detail, index) => (
-                              <li key={index} className="text-left leading-relaxed">
-                                {detail}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    </div>
+      <div className="grid gap-5">
+        {experiences.map((experience) => (
+          <article
+            key={experience.id}
+            className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(14,18,36,0.92)_0%,rgba(8,10,24,0.98)_100%)] p-6 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-8"
+          >
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+            <div className="relative flex flex-col gap-5 md:flex-row md:items-start md:gap-8">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-blue-200">
+                <BsPersonWorkspace size={22} aria-hidden="true" />
+              </div>
+              <div className="w-full">
+                <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold leading-tight text-white md:text-2xl">
+                      {experience.title}
+                    </h3>
+                    <p className="mt-2 text-sm font-medium text-violet-100 md:text-base">
+                      {experience.company}
+                    </p>
                   </div>
-                </GlowCard>
-              ))
-            }
-          </div>
-        </div>
+                  <p className="shrink-0 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
+                    {experience.duration}
+                  </p>
+                </div>
+                {experience.details && (
+                  <ul className="mt-5 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-300">
+                    {experience.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 

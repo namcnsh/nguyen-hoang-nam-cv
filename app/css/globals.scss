@@ -12,7 +12,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #0d1224;
+  background-color: #05070f;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(79, 70, 229, 0.32), transparent 34rem),
+    radial-gradient(circle at 82% 4%, rgba(124, 58, 237, 0.28), transparent 30rem),
+    radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.18), transparent 36rem),
+    linear-gradient(135deg, #02040a 0%, #080b18 48%, #0d1024 100%);
+  background-attachment: fixed;
 }
 
 #sticky-card-1 {
@@ -32,13 +38,28 @@ body {
 }
 
 .sticky-card {
-  // padding-top: calc(var(--index) * 2.5rem);
   top: calc(var(--index) * 4rem);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .hover\:-translate-y-1:hover,
+  .hover\:scale-110:hover,
+  .hover\:scale-125:hover {
+    transform: none !important;
+  }
+}
+
 #devtools-indicator,
-nextjs-portal,
-[data-nextjs-toast],
 [id^="devtools-indicator"] {
   display: none !important;
   visibility: hidden !important;

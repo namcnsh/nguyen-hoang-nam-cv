@@ -1,65 +1,47 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { IoMenu, IoClose } from "react-icons/io5";
+
+const navItems = [
+  { href: "/#about", label: "Giới thiệu" },
+  { href: "/#featured-case-studies", label: "Case study" },
+  { href: "/#experience", label: "Kinh nghiệm" },
+  { href: "/#skills", label: "Kỹ năng" },
+  { href: "/#education", label: "Học vấn" },
+  { href: "/#contact", label: "Liên hệ" },
+];
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <nav className="bg-transparent relative z-[99]">
-      <div className="flex items-center justify-between py-5">
-        <div className="flex flex-shrink-0 items-center">
-          <Link
-            href="/"
-            className="text-[#16f2b3] text-2xl sm:text-3xl font-bold">
-            <img src="/logoseilybvn.png" alt="Logo" className="h-16 sm:h-20" />
-          </Link>
-        </div>
-
-        {/* Hamburger button for mobile */}
-        <button
-          className="text-white hover:text-[#16f2b3] md:hidden focus:outline-none p-2"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation menu"
+    <nav className="relative z-[99] bg-transparent">
+      <div className="flex flex-col gap-3 py-5 md:flex-row md:items-center md:justify-between">
+        <Link
+          href="/"
+          className="w-fit rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          aria-label="Về đầu trang"
         >
-          {isOpen ? <IoClose size={28} /> : <IoMenu size={28} />}
-        </button>
+          <Image
+            src="/logoseilybvn.png"
+            alt="Logo"
+            width={160}
+            height={80}
+            className="h-16 w-auto sm:h-20"
+            priority
+          />
+        </Link>
 
-        {/* Navigation menu */}
-        <ul className={`
-          flex flex-col items-start text-sm md:flex-row md:space-x-1 md:border-0 md:opacity-100 md:h-auto md:max-h-screen md:w-auto md:relative md:bg-transparent md:p-0 md:flex
-          ${isOpen 
-            ? 'absolute top-full left-0 w-full bg-[#0d1224] border-b border-[#25213b] p-6 opacity-100 max-h-screen transition-all duration-300 ease-in-out' 
-            : 'hidden md:flex'
-          }
-        `} id="navbar-default">
-          <li className="w-full md:w-auto">
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#about" onClick={() => setIsOpen(false)}>
-              <div className="text-sm text-white transition-colors duration-300 hover:text-[#16f2b3]">GIỚI THIỆU</div>
-            </Link>
-          </li>
-          <li className="w-full md:w-auto">
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#experience" onClick={() => setIsOpen(false)}>
-              <div className="text-sm text-white transition-colors duration-300 hover:text-[#16f2b3]">KINH NGHIỆM</div>
-            </Link>
-          </li>
-          <li className="w-full md:w-auto">
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#skills" onClick={() => setIsOpen(false)}>
-              <div className="text-sm text-white transition-colors duration-300 hover:text-[#16f2b3]">KỸ NĂNG</div>
-            </Link>
-          </li>
-          <li className="w-full md:w-auto">
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#education" onClick={() => setIsOpen(false)}>
-              <div className="text-sm text-white transition-colors duration-300 hover:text-[#16f2b3]">HỌC VẤN</div>
-            </Link>
-          </li>
-          <li className="w-full md:w-auto">
-            <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#projects" onClick={() => setIsOpen(false)}>
-              <div className="text-sm text-white transition-colors duration-300 hover:text-[#16f2b3]">DỰ ÁN</div>
-            </Link>
-          </li>
+        <ul className="flex max-w-full gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[0.03] p-2 text-sm md:flex-wrap md:justify-end md:overflow-visible">
+          {navItems.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <Link
+                className="block rounded-full px-3 py-2 text-white no-underline outline-none transition-colors hover:text-blue-200 hover:no-underline focus-visible:ring-2 focus-visible:ring-blue-400/60 md:px-4"
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
