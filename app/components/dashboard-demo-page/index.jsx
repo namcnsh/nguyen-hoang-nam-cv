@@ -204,14 +204,14 @@ function DashboardDemoPageContent() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden py-10 lg:py-14">
+    <section className="relative -mx-6 overflow-hidden py-6 sm:-mx-12 lg:mx-0 lg:py-14">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.20),transparent_32%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.18),transparent_30%),linear-gradient(180deg,#050816_0%,#0b1020_52%,#060914_100%)]" />
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-sky-300/30 to-transparent" />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-[0_0_60px_rgba(0,0,0,0.24)] backdrop-blur xl:flex-row xl:items-center xl:justify-between xl:p-7">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:gap-8 lg:px-8">
+        <div className="flex flex-col gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4 sm:rounded-[2rem] sm:p-5 shadow-[0_0_60px_rgba(0,0,0,0.24)] backdrop-blur xl:flex-row xl:items-center xl:justify-between xl:p-7">
           <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <span className="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-100">
                 Agency Performance Report
               </span>
@@ -219,7 +219,7 @@ function DashboardDemoPageContent() {
                 Executive Snapshot
               </span>
             </div>
-            <h1 className="mt-4 text-3xl font-bold text-white md:text-5xl">
+            <h1 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-5xl">
               Dashboard phân tích hiệu quả quảng cáo
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
@@ -230,29 +230,29 @@ function DashboardDemoPageContent() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:text-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:text-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50">
               <FaArrowLeft size={12} aria-hidden="true" />
               <span>Về landing page</span>
             </Link>
-            <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-100">
+            <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-center text-sm font-medium text-emerald-100">
               Snapshot 7 ngày gần nhất
             </div>
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {dashboardSummary.map((item) => (
-            <article key={item.label} className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.95)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_30px_rgba(0,0,0,0.18)]">
+            <article key={item.label} className="rounded-[1.35rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.95)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_30px_rgba(0,0,0,0.18)] sm:rounded-[1.75rem] sm:p-5">
               <p className="text-xs uppercase tracking-[0.24em] text-slate-400">{item.label}</p>
-              <p className="mt-4 text-3xl font-bold text-white">{item.value}</p>
+              <p className="mt-3 text-2xl font-bold text-white sm:mt-4 sm:text-3xl">{item.value}</p>
               <p className="mt-2 text-sm text-emerald-200">{item.note}</p>
             </article>
           ))}
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.45fr_0.95fr]">
-          <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+          <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Hiệu suất theo thời gian</p>
@@ -277,7 +277,7 @@ function DashboardDemoPageContent() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-[#060b17]/80 p-4 lg:p-5">
+            <div className="mt-6 rounded-[1.25rem] border border-white/10 bg-[#060b17]/80 p-3 sm:rounded-[1.75rem] sm:p-4 lg:p-5">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                 <div>
                   <p className="text-sm font-medium text-white">{metricOptions.find((item) => item.key === activeMetric)?.description}</p>
@@ -288,8 +288,8 @@ function DashboardDemoPageContent() {
                 </div>
               </div>
 
-              <div className="mt-6 overflow-x-auto">
-                <svg viewBox="0 0 540 260" className="h-[260px] min-w-[540px] w-full" role="img" aria-label="Biểu đồ hiệu suất theo ngày của các kênh quảng cáo">
+              <div className="mt-5 overflow-hidden sm:mt-6">
+                <svg viewBox="0 0 540 260" className="h-[210px] w-full sm:h-[260px]" role="img" aria-label="Biểu đồ hiệu suất theo ngày của các kênh quảng cáo">
                   <defs>
                     <linearGradient id="chart-grid" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stopColor="rgba(255,255,255,0.14)" />
@@ -358,12 +358,12 @@ function DashboardDemoPageContent() {
             </div>
           </section>
 
-          <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+          <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
             <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Phân bổ ngân sách</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Budget allocation snapshot</h2>
             <p className="mt-2 text-sm leading-7 text-slate-300">Tỷ trọng ngân sách giúp người xem nhanh chóng nhận ra kênh nào đang giữ vai trò chính trong kế hoạch media.</p>
 
-            <div className="mt-6 flex flex-col items-center gap-6 rounded-[1.75rem] border border-white/10 bg-[#060b17]/80 p-5">
+            <div className="mt-6 flex flex-col items-center gap-6 rounded-[1.25rem] border border-white/10 bg-[#060b17]/80 p-4 sm:rounded-[1.75rem] sm:p-5">
               <div className="relative flex h-44 w-44 items-center justify-center">
                 <svg viewBox="0 0 160 160" className="h-44 w-44 -rotate-90">
                   <circle cx="80" cy="80" r="64" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="18" />
@@ -407,7 +407,7 @@ function DashboardDemoPageContent() {
           </section>
         </div>
 
-        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+        <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.28em] text-violet-200">So sánh theo kênh</p>
@@ -440,7 +440,7 @@ function DashboardDemoPageContent() {
               const widthPercent = Math.max(10, Math.round((displayValue / maxValue) * 100));
 
               return (
-                <button key={item.name} type="button" onClick={() => setActiveComparisonChannel(item.name)} className={`text-left rounded-[1.75rem] border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${isActive ? "border-white/20 bg-white/[0.08]" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.06]"}`}>
+                <button key={item.name} type="button" onClick={() => setActiveComparisonChannel(item.name)} className={`rounded-[1.25rem] border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 sm:rounded-[1.75rem] sm:p-5 ${isActive ? "border-white/20 bg-white/[0.08]" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.06]"}`}>
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="text-lg font-semibold text-white">{item.name}</h3>
                     <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
@@ -448,7 +448,7 @@ function DashboardDemoPageContent() {
                   <div className="mt-4 h-3 rounded-full bg-white/5">
                     <div className="h-full rounded-full transition-all duration-300" style={{ width: `${widthPercent}%`, backgroundColor: item.color }} />
                   </div>
-                  <p className="mt-4 text-2xl font-bold text-white">
+                  <p className="mt-4 break-words text-xl font-bold text-white sm:text-2xl">
                     {activeComparisonMetric === "spend"
                       ? `${new Intl.NumberFormat("vi-VN").format(displayValue)}đ`
                       : displayValue}
@@ -472,7 +472,7 @@ function DashboardDemoPageContent() {
         </section>
 
         <section className="grid gap-5 lg:grid-cols-2">
-          <div className="flex h-full flex-col rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+          <div className="flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
             <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Mục tiêu & nhận xét</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Executive commentary</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">Mục tiêu: theo dõi hiệu quả theo kênh, so sánh chi phí tạo lead và xác định hướng tối ưu ngân sách.</p>
@@ -487,7 +487,7 @@ function DashboardDemoPageContent() {
             </div>
           </div>
 
-          <div className="flex h-full flex-col rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-5 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-7">
+          <div className="flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
             <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Đề xuất tối ưu</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">Recommended next actions</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">Các hành động ưu tiên giúp cải thiện chất lượng lead, tối ưu chi phí và kiểm soát ngân sách theo từng kênh.</p>
