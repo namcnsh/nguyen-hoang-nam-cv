@@ -1,8 +1,12 @@
+"use client";
 // @flow strict
 
+import { useI18n } from '@/app/components/i18n-provider';
 import * as React from 'react';
 
 function ProjectCard({ project }) {
+  const { dictionary } = useI18n();
+  const codeLabels = dictionary.common;
 
   return (
     <div className="from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] w-full">
@@ -29,14 +33,14 @@ function ProjectCard({ project }) {
             <span className="text-gray-400">{'{'}</span>
           </div>
           <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
+            <span className="ml-4 lg:ml-8 mr-2 text-white">{codeLabels.name}</span>
             <span className="text-gray-400">{`'`}</span>
             <span className="text-amber-300">{project.name}</span>
             <span className="text-gray-400">{`',`}</span>
           </div>
 
           <div className="ml-4 lg:ml-8 mr-2">
-            <span className=" text-white">tools:</span>
+            <span className=" text-white">{codeLabels.tools}</span>
             <span className="text-gray-400">{` ['`}</span>
             {
               project.tools.map((tag, i) => (
@@ -52,12 +56,12 @@ function ProjectCard({ project }) {
             <span className="text-gray-400">{"],"}</span>
           </div>
           <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">myRole:</span>
+            <span className="ml-4 lg:ml-8 mr-2 text-white">{codeLabels.myRole}</span>
             <span className="text-orange-400">{project.role}</span>
             <span className="text-gray-400">,</span>
           </div>
           <div className="ml-4 lg:ml-8 mr-2">
-            <span className="text-white">Description:</span>
+            <span className="text-white">{codeLabels.description}</span>
             <span className="text-cyan-400">{' ' + project.description}</span>
             <span className="text-gray-400">,</span>
           </div>

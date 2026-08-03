@@ -1,5 +1,6 @@
+"use client";
 // @flow strict
-import { personalData } from '@/utils/data/personal-data';
+import { useI18n } from '@/app/components/i18n-provider';
 import Link from 'next/link';
 import { BiLogoLinkedin } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
@@ -9,28 +10,31 @@ import { IoLogoGithub, IoMdCall } from "react-icons/io";
 import { MdAlternateEmail } from "react-icons/md";
 import ContactForm from './contact-form';
 
-const socialLinks = [
-  { href: personalData.github, icon: IoLogoGithub, label: 'GitHub' },
-  { href: personalData.linkedIn, icon: BiLogoLinkedin, label: 'LinkedIn' },
-  { href: personalData.twitter, icon: FaXTwitter, label: 'X' },
-  { href: personalData.stackOverflow, icon: FaStackOverflow, label: 'Stack Overflow' },
-  { href: personalData.facebook, icon: FaFacebook, label: 'Facebook' },
-].filter((item) => item.href);
-
-const contactPhoneHref = `tel:+84${personalData.phone.replace(/^0/, '')}`;
-
-const contactItems = [
-  { icon: MdAlternateEmail, value: personalData.email, label: 'Email', href: `mailto:${personalData.email}` },
-  { icon: IoMdCall, value: personalData.phone, label: 'Điện thoại', href: contactPhoneHref },
-  { icon: CiLocationOn, value: personalData.address, label: 'Địa chỉ' },
-];
-
 function ContactSection() {
+  const { dictionary } = useI18n();
+  const { personal, contact } = dictionary;
+  const { sections } = dictionary.home;
+  const socialLinks = [
+    { href: personal.github, icon: IoLogoGithub, label: 'GitHub' },
+    { href: personal.linkedIn, icon: BiLogoLinkedin, label: 'LinkedIn' },
+    { href: personal.twitter, icon: FaXTwitter, label: 'X' },
+    { href: personal.stackOverflow, icon: FaStackOverflow, label: 'Stack Overflow' },
+    { href: personal.facebook, icon: FaFacebook, label: 'Facebook' },
+  ].filter((item) => item.href);
+
+  const contactPhoneHref = `tel:+84${personal.phone.replace(/^0/, '')}`;
+
+  const contactItems = [
+    { icon: MdAlternateEmail, value: personal.email, label: 'Email', href: `mailto:${personal.email}` },
+    { icon: IoMdCall, value: personal.phone, label: contact.labels.phone, href: contactPhoneHref },
+    { icon: CiLocationOn, value: personal.address, label: contact.labels.address },
+  ];
+
   return (
     <section id="contact" className="relative my-12 mt-24 text-white lg:my-24">
       <div className="mb-8 flex items-center gap-4">
         <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
-          Liên hệ
+          {sections.contact}
         </span>
         <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
@@ -87,7 +91,7 @@ function ContactSection() {
           {socialLinks.length > 0 ? (
             <div className="mt-8 border-t border-white/10 pt-6">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
-                Mạng xã hội
+                {contact.socialLabel}
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 {socialLinks.map((item) => {

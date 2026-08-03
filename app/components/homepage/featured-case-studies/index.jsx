@@ -1,20 +1,24 @@
+"use client";
 import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-import { projectsData } from "@/utils/data/projects-data";
+import { useI18n } from "@/app/components/i18n-provider";
 
 const selectedProjectIds = [1, 2];
 
 function FeaturedCaseStudies() {
+  const { dictionary } = useI18n();
+  const { sections } = dictionary.home;
+  const { viewDemo, roleLabel } = dictionary.common;
   const projects = selectedProjectIds
-    .map((id) => projectsData.find((project) => project.id === id))
+    .map((id) => dictionary.projects.find((project) => project.id === id))
     .filter(Boolean);
 
   return (
     <section id="featured-case-studies" className="relative my-12 lg:my-24">
       <div className="mb-8 flex items-center gap-4">
         <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
-          Case study nổi bật
+          {sections.featuredCaseStudies}
         </span>
         <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
@@ -46,18 +50,18 @@ function FeaturedCaseStudies() {
 
               <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">Role</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{roleLabel}</p>
                   <p className="mt-1 text-sm font-medium text-violet-100">{project.role}</p>
                 </div>
 
                 {project.id === 1 && project.demo ? (
                   <Link href={project.demo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-400/50">
-                    <span>Xem demo</span>
+                    <span>{viewDemo}</span>
                     <FaExternalLinkAlt size={12} aria-hidden="true" />
                   </Link>
                 ) : project.id === 2 ? (
                   <Link href="/dashboard-demo" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-400/50">
-                    <span>Xem demo</span>
+                    <span>{viewDemo}</span>
                     <FaExternalLinkAlt size={12} aria-hidden="true" />
                   </Link>
                 ) : null}

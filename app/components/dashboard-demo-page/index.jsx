@@ -2,148 +2,29 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { FaArrowLeft, FaChartLine, FaExternalLinkAlt } from "react-icons/fa";
+import { FaArrowLeft, FaChartLine } from "react-icons/fa";
+import { useI18n } from "../i18n-provider";
 
-const metricOptions = [
-  { key: "leads", label: "Lead", suffix: "", description: "Số lượng lead theo ngày" },
-  { key: "cpl", label: "Cost/Lead", suffix: "đ", description: "Chi phí tạo lead theo ngày" },
-  { key: "ctr", label: "CTR", suffix: "%", description: "Tỷ lệ nhấp theo ngày" }
-];
-const comparisonOptions = [
-  { key: "spend", label: "Ngân sách", description: "So sánh ngân sách theo kênh" },
-  { key: "leads", label: "Lead", description: "So sánh số lead theo kênh" },
-  { key: "cpl", label: "Cost/Lead", description: "So sánh chi phí/lead theo kênh" }
-];
-
-const dashboardSummary = [
-  { label: "Tổng ngân sách", value: "12,3 triệu", note: "+8,4% so với kỳ trước" },
-  { label: "Tổng lead", value: "128", note: "+14 lead trong 7 ngày" },
-  { label: "Cost/Lead", value: "96.000đ", note: "-7,1% vs tuần trước" },
-  { label: "CTR trung bình", value: "1,86%", note: "+0,22 điểm %" },
-  { label: "Conversion Rate", value: "7,4%", note: "+0,8 điểm %" }
-];
-
-const budgetMix = [
-  { name: "Meta Ads", share: 63, amount: "7.800.000đ", color: "#8b5cf6" },
-  { name: "Google Ads", share: 29, amount: "3.600.000đ", color: "#38bdf8" },
-  { name: "TikTok Ads", share: 8, amount: "900.000đ", color: "#22c55e" }
-];
-const channelComparison = [
-  { name: "Meta Ads", color: "#8b5cf6", spend: 7800000, leads: 82, cpl: 95000 },
-  { name: "Google Ads", color: "#38bdf8", spend: 3600000, leads: 31, cpl: 116000 },
-  { name: "TikTok Ads", color: "#22c55e", spend: 900000, leads: 15, cpl: 60000 }
-];
-
-const channelCards = [
-  {
-    name: "Meta Ads",
-    accent: "from-violet-500/30 to-fuchsia-400/10",
-    spend: "7.800.000đ",
-    leads: "82",
-    ctr: "2,1%",
-    cpl: "95.000đ",
-    quality: "Lead volume mạnh nhất",
-    note: "Kênh tạo lead lớn nhất trong bảng phân tích."
-  },
-  {
-    name: "Google Ads",
-    accent: "from-sky-500/30 to-cyan-400/10",
-    spend: "3.600.000đ",
-    leads: "31",
-    ctr: "4,8%",
-    cpl: "116.000đ",
-    quality: "Nhu cầu chủ động cao",
-    note: "CTR cao, phù hợp nhóm khách hàng đã có nhu cầu rõ."
-  },
-  {
-    name: "TikTok Ads",
-    accent: "from-emerald-500/30 to-lime-400/10",
-    spend: "900.000đ",
-    leads: "15",
-    ctr: "1,4%",
-    cpl: "60.000đ",
-    quality: "Chi phí/lead thấp",
-    note: "Chi phí/lead thấp trong bảng phân tích, cần kiểm tra chất lượng lead."
-  }
-];
-
-const insights = [
-  {
-    title: "Điểm sáng",
-    description: "Meta Ads đang đóng vai trò kênh giữ nhịp volume lead, phù hợp để duy trì độ phủ cho chiến dịch."
-  },
-  {
-    title: "Điểm cần lưu ý",
-    description: "Google Ads có CTR tốt nhưng CPL cao hơn Meta Ads, cho thấy cần tối ưu thêm landing page và nhóm từ khóa."
-  },
-  {
-    title: "Cơ hội test",
-    description: "TikTok Ads có CPL thấp trong bảng phân tích; có thể test thêm creative ngắn để xem khả năng mở rộng."
-  }
-];
-
-const nextActions = [
-  "Giữ ngân sách nền cho Meta Ads nếu chất lượng lead tiếp tục ổn định.",
-  "Rà soát truy vấn tìm kiếm và cải thiện thông điệp landing page cho Google Ads.",
-  "Tạo thêm 2-3 biến thể creative ngắn cho TikTok Ads trước khi tăng ngân sách."
-];
-
-const performanceSeries = {
-  leads: {
-    unit: "lead",
-    rows: [
-      { label: "T2", MetaAds: 10, GoogleAds: 4, TikTokAds: 2 },
-      { label: "T3", MetaAds: 12, GoogleAds: 5, TikTokAds: 2 },
-      { label: "T4", MetaAds: 11, GoogleAds: 4, TikTokAds: 1 },
-      { label: "T5", MetaAds: 13, GoogleAds: 5, TikTokAds: 3 },
-      { label: "T6", MetaAds: 12, GoogleAds: 4, TikTokAds: 2 },
-      { label: "T7", MetaAds: 14, GoogleAds: 5, TikTokAds: 3 },
-      { label: "CN", MetaAds: 10, GoogleAds: 4, TikTokAds: 2 }
-    ]
-  },
-  cpl: {
-    unit: "đ",
-    rows: [
-      { label: "T2", MetaAds: 98000, GoogleAds: 122000, TikTokAds: 64000 },
-      { label: "T3", MetaAds: 95000, GoogleAds: 118000, TikTokAds: 62000 },
-      { label: "T4", MetaAds: 97000, GoogleAds: 120000, TikTokAds: 61000 },
-      { label: "T5", MetaAds: 93000, GoogleAds: 117000, TikTokAds: 58000 },
-      { label: "T6", MetaAds: 96000, GoogleAds: 115000, TikTokAds: 60000 },
-      { label: "T7", MetaAds: 94000, GoogleAds: 114000, TikTokAds: 59000 },
-      { label: "CN", MetaAds: 95000, GoogleAds: 116000, TikTokAds: 60000 }
-    ]
-  },
-  ctr: {
-    unit: "%",
-    rows: [
-      { label: "T2", MetaAds: 1.9, GoogleAds: 4.5, TikTokAds: 1.2 },
-      { label: "T3", MetaAds: 2.0, GoogleAds: 4.7, TikTokAds: 1.3 },
-      { label: "T4", MetaAds: 1.8, GoogleAds: 4.6, TikTokAds: 1.1 },
-      { label: "T5", MetaAds: 2.1, GoogleAds: 4.9, TikTokAds: 1.5 },
-      { label: "T6", MetaAds: 2.0, GoogleAds: 4.8, TikTokAds: 1.4 },
-      { label: "T7", MetaAds: 2.2, GoogleAds: 5.0, TikTokAds: 1.5 },
-      { label: "CN", MetaAds: 2.1, GoogleAds: 4.8, TikTokAds: 1.4 }
-    ]
-  }
-};
-
-const channelConfig = {
-  MetaAds: { label: "Meta Ads", color: "#8b5cf6" },
-  GoogleAds: { label: "Google Ads", color: "#38bdf8" },
-  TikTokAds: { label: "TikTok Ads", color: "#22c55e" }
-};
-const chartChannels = Object.keys(channelConfig);
-
-function formatMetricValue(metricKey, value) {
+function formatMetricValue(metricKey, value, locale) {
   if (metricKey === "cpl") {
-    return `${new Intl.NumberFormat("vi-VN").format(value)}đ`;
+    return locale === "en" ? `${new Intl.NumberFormat("en-US").format(value)} VND` : `${new Intl.NumberFormat("vi-VN").format(value)}đ`;
   }
 
   if (metricKey === "ctr") {
-    return `${value.toFixed(1).replace(".", ",")}%`;
+    const formattedValue = value.toFixed(1);
+
+    return locale === "en" ? `${formattedValue}%` : `${formattedValue.replace(".", ",")}%`;
   }
 
   return `${value}`;
+}
+
+function formatComparisonValue(metricKey, value, locale) {
+  if (metricKey === "spend" || metricKey === "cpl") {
+    return locale === "en" ? `${new Intl.NumberFormat("en-US").format(value)} VND` : `${new Intl.NumberFormat("vi-VN").format(value)}đ`;
+  }
+
+  return value;
 }
 
 function buildPath(values, maxValue) {
@@ -157,6 +38,18 @@ function buildPath(values, maxValue) {
 }
 
 function DashboardDemoPageContent() {
+  const { dictionary, locale } = useI18n();
+  const dashboard = dictionary.dashboard;
+  const metricOptions = dashboard.metricOptions;
+  const comparisonOptions = dashboard.comparisonOptions;
+  const dashboardSummary = dashboard.summary;
+  const budgetMix = dashboard.budgetMix;
+  const channelComparison = dashboard.channelComparison;
+  const insights = dashboard.insights;
+  const nextActions = dashboard.nextActions;
+  const performanceSeries = dashboard.performanceSeries;
+  const channelConfig = dashboard.channelConfig;
+  const chartChannels = useMemo(() => Object.keys(channelConfig), [channelConfig]);
   const [activeMetric, setActiveMetric] = useState("leads");
   const [activeChannel, setActiveChannel] = useState("MetaAds");
   const [activeComparisonMetric, setActiveComparisonMetric] = useState("spend");
@@ -175,7 +68,7 @@ function DashboardDemoPageContent() {
       values: metricData.rows.map((row) => row[channel]),
       path: buildPath(metricData.rows.map((row) => row[channel]), maxValue)
     }));
-  }, [chartChannels, metricData.rows]);
+  }, [chartChannels, channelConfig, metricData.rows]);
 
   const activePoint = metricData.rows[metricData.rows.length - 1];
   const activeChannelLabel = channelConfig[activeChannel].label;
@@ -201,7 +94,7 @@ function DashboardDemoPageContent() {
         dashOffset: -dashOffset
       };
     });
-  }, []);
+  }, [budgetMix]);
 
   return (
     <section className="relative -mx-6 overflow-hidden py-6 sm:-mx-12 lg:mx-0 lg:py-14">
@@ -213,30 +106,30 @@ function DashboardDemoPageContent() {
           <div className="max-w-3xl">
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <span className="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-100">
-                Agency Performance Report
+                {dashboard.headerBadges[0]}
               </span>
               <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-medium text-emerald-100">
-                Executive Snapshot
+                {dashboard.headerBadges[1]}
               </span>
             </div>
             <h1 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-5xl">
-              Dashboard phân tích hiệu quả quảng cáo
+              {dashboard.title}
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
-              Bảng phân tích mô phỏng cách một agency hoặc team performance marketing theo dõi ngân sách, lead, CPL và hiệu quả theo từng kênh quảng cáo.
+              {dashboard.description}
             </p>
             <p className="mt-3 text-sm font-medium text-sky-200">
-              Dùng để minh họa cách đọc và phân tích hiệu quả quảng cáo.
+              {dashboard.subtitle}
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-sky-300/40 hover:text-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50">
               <FaArrowLeft size={12} aria-hidden="true" />
-              <span>Về landing page</span>
+              <span>{dashboard.back}</span>
             </Link>
             <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-center text-sm font-medium text-emerald-100">
-              Snapshot 7 ngày gần nhất
+              {dashboard.snapshot}
             </div>
           </div>
         </div>
@@ -255,9 +148,9 @@ function DashboardDemoPageContent() {
           <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Hiệu suất theo thời gian</p>
-                <h2 className="mt-3 text-2xl font-semibold text-white">Executive trend overview</h2>
-                <p className="mt-2 text-sm leading-7 text-slate-300">Chọn chỉ số để xem sự thay đổi hiệu suất theo từng ngày và nhấn vào kênh để làm nổi bật kết quả cuối kỳ.</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-violet-200">{dashboard.trendTitle}</p>
+                <h2 className="mt-3 text-2xl font-semibold text-white">{dashboard.trendSubtitle}</h2>
+                <p className="mt-2 text-sm leading-7 text-slate-300">{dashboard.trendDescription}</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 {metricOptions.map((metric) => {
@@ -281,15 +174,15 @@ function DashboardDemoPageContent() {
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                 <div>
                   <p className="text-sm font-medium text-white">{metricOptions.find((item) => item.key === activeMetric)?.description}</p>
-                  <p className="mt-1 text-xs text-slate-400">Đơn vị hiển thị thay đổi theo chỉ số đang chọn.</p>
+                  <p className="mt-1 text-xs text-slate-400">{dashboard.metricUnitNote}</p>
                 </div>
                 <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300">
-                  Hover-free mode, tap-friendly trên mobile
+                  {dashboard.interactionMode}
                 </div>
               </div>
 
               <div className="mt-5 overflow-hidden sm:mt-6">
-                <svg viewBox="0 0 540 260" className="h-[210px] w-full sm:h-[260px]" role="img" aria-label="Biểu đồ hiệu suất theo ngày của các kênh quảng cáo">
+                <svg viewBox="0 0 540 260" className="h-[210px] w-full sm:h-[260px]" role="img" aria-label={dashboard.chartAriaLabel}>
                   <defs>
                     <linearGradient id="chart-grid" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stopColor="rgba(255,255,255,0.14)" />
@@ -349,19 +242,19 @@ function DashboardDemoPageContent() {
               <div className="mt-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
                 <div className="flex items-center gap-2 text-sm text-slate-300">
                   <FaChartLine className="text-sky-300" aria-hidden="true" />
-                  <span>Kênh đang xem: <strong className="text-white">{activeChannelLabel}</strong></span>
+                  <span>{dashboard.activeChannelLabel} <strong className="text-white">{activeChannelLabel}</strong></span>
                 </div>
                 <p className="mt-2 text-sm leading-7 text-slate-300">
-                  Giá trị cuối kỳ: <span className="font-semibold text-white">{formatMetricValue(activeMetric, activeValue)}</span>. Chỉ số này giúp người xem đọc nhanh xu hướng hiệu suất quảng cáo.
+                  {dashboard.finalValueLabel} <span className="font-semibold text-white">{formatMetricValue(activeMetric, activeValue, locale)}</span>. {dashboard.finalValueHelp}
                 </p>
               </div>
             </div>
           </section>
 
           <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
-            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Phân bổ ngân sách</p>
-            <h2 className="mt-3 text-2xl font-semibold text-white">Budget allocation snapshot</h2>
-            <p className="mt-2 text-sm leading-7 text-slate-300">Tỷ trọng ngân sách giúp người xem nhanh chóng nhận ra kênh nào đang giữ vai trò chính trong kế hoạch media.</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">{dashboard.budgetTitle}</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">{dashboard.budgetSubtitle}</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-300">{dashboard.budgetDescription}</p>
 
             <div className="mt-6 flex flex-col items-center gap-6 rounded-[1.25rem] border border-white/10 bg-[#060b17]/80 p-4 sm:rounded-[1.75rem] sm:p-5">
               <div className="relative flex h-44 w-44 items-center justify-center">
@@ -383,9 +276,9 @@ function DashboardDemoPageContent() {
                   ))}
                 </svg>
                 <div className="absolute text-center">
-                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Budget Mix</p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">{dashboard.budgetMixLabel}</p>
                   <p className="mt-2 text-3xl font-bold text-white">100%</p>
-                  <p className="mt-1 text-xs text-slate-400">media mix</p>
+                  <p className="mt-1 text-xs text-slate-400">{dashboard.mediaMixLabel}</p>
                 </div>
               </div>
 
@@ -410,9 +303,9 @@ function DashboardDemoPageContent() {
         <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-violet-200">So sánh theo kênh</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">Interactive channel comparison</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-300">Chọn chỉ số để xem kênh nào dẫn đầu theo ngân sách, lead hoặc cost/lead.</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-violet-200">{dashboard.comparisonTitle}</p>
+              <h2 className="mt-3 text-2xl font-semibold text-white">{dashboard.comparisonSubtitle}</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-300">{dashboard.comparisonDescription}</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {comparisonOptions.map((metric) => {
@@ -449,12 +342,10 @@ function DashboardDemoPageContent() {
                     <div className="h-full rounded-full transition-all duration-300" style={{ width: `${widthPercent}%`, backgroundColor: item.color }} />
                   </div>
                   <p className="mt-4 break-words text-xl font-bold text-white sm:text-2xl">
-                    {activeComparisonMetric === "spend"
-                      ? `${new Intl.NumberFormat("vi-VN").format(displayValue)}đ`
-                      : displayValue}
+                    {formatComparisonValue(activeComparisonMetric, displayValue, locale)}
                   </p>
                   <p className="mt-2 text-sm leading-7 text-slate-300">
-                    {activeComparisonMetric === "spend" ? "Ngân sách" : activeComparisonMetric === "leads" ? "Lead" : "Cost/Lead"}
+                    {comparisonOptions.find((metric) => metric.key === activeComparisonMetric)?.label}
                   </p>
                 </button>
               );
@@ -463,19 +354,19 @@ function DashboardDemoPageContent() {
 
           <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
             <p className="text-sm text-slate-300">
-              Kênh đang xem: <strong className="text-white">{activeComparisonChannel}</strong>
+              {dashboard.activeChannelLabel} <strong className="text-white">{activeComparisonChannel}</strong>
             </p>
             <p className="mt-2 text-sm leading-7 text-slate-300">
-              Giá trị hiện tại: <span className="font-semibold text-white">{activeComparisonMetric === "spend" ? `${new Intl.NumberFormat("vi-VN").format(activeComparisonData[activeComparisonMetric])}đ` : activeComparisonData[activeComparisonMetric]}</span>
+              {dashboard.currentValueLabel} <span className="font-semibold text-white">{formatComparisonValue(activeComparisonMetric, activeComparisonData[activeComparisonMetric], locale)}</span>
             </p>
           </div>
         </section>
 
         <section className="grid gap-5 lg:grid-cols-2">
           <div className="flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
-            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Mục tiêu & nhận xét</p>
-            <h2 className="mt-3 text-2xl font-semibold text-white">Executive commentary</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-300">Mục tiêu: theo dõi hiệu quả theo kênh, so sánh chi phí tạo lead và xác định hướng tối ưu ngân sách.</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">{dashboard.commentaryTitle}</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">{dashboard.commentarySubtitle}</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-300">{dashboard.commentaryDescription}</p>
 
             <div className="mt-6 grid flex-1 gap-4">
               {insights.map((item) => (
@@ -488,9 +379,9 @@ function DashboardDemoPageContent() {
           </div>
 
           <div className="flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,26,48,0.96)_0%,rgba(8,12,26,0.98)_100%)] p-4 shadow-[0_0_40px_rgba(0,0,0,0.20)] sm:rounded-[2rem] sm:p-5 lg:p-7">
-            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">Đề xuất tối ưu</p>
-            <h2 className="mt-3 text-2xl font-semibold text-white">Recommended next actions</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-300">Các hành động ưu tiên giúp cải thiện chất lượng lead, tối ưu chi phí và kiểm soát ngân sách theo từng kênh.</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-violet-200">{dashboard.actionsTitle}</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">{dashboard.actionsSubtitle}</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-300">{dashboard.actionsDescription}</p>
 
             <div className="mt-6 grid flex-1 gap-4">
               {nextActions.map((item, index) => (

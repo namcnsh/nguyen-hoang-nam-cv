@@ -1,19 +1,23 @@
+"use client";
 // @flow strict
-import { educations } from "@/utils/data/educations";
+import { useI18n } from "@/app/components/i18n-provider";
 import { BsPersonWorkspace } from "react-icons/bs";
 
 function Education() {
+  const { dictionary } = useI18n();
+  const { sections } = dictionary.home;
+
   return (
     <section id="education" className="relative z-50 my-12 border-t border-white/10 pt-10 lg:my-24 lg:pt-14">
       <div className="mb-8 flex items-center gap-4">
         <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
-          Học vấn
+          {sections.education}
         </span>
         <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
 
       <div className="grid gap-5">
-        {educations.map((education) => (
+        {dictionary.educations.map((education) => (
           <article
             key={education.id}
             className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(14,18,36,0.92)_0%,rgba(8,10,24,0.98)_100%)] p-6 shadow-[0_0_40px_rgba(0,0,0,0.20)] lg:p-8"

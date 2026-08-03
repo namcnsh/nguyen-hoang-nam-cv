@@ -4,18 +4,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useI18n } from "./i18n-provider";
 
-const navItems = [
-  { href: "/#about", label: "Giới thiệu" },
-  { href: "/#featured-case-studies", label: "Case study" },
-  { href: "/#experience", label: "Kinh nghiệm" },
-  { href: "/#skills", label: "Kỹ năng" },
-  { href: "/#education", label: "Học vấn" },
-  { href: "/#contact", label: "Liên hệ" },
+const languageOptions = [
+  { locale: "vi", label: "VI" },
+  { locale: "en", label: "EN" },
 ];
+
+function LanguageToggle({ activeLocale, label, setLocale }) {
+  return (
+    <div className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1 text-xs" role="group" aria-label={label}>
+      {languageOptions.map((item) => (
+        <button
+          key={item.locale}
+          type="button"
+          onClick={() => setLocale(item.locale)}
+          aria-pressed={activeLocale === item.locale}
+          className="rounded-full px-3 py-2 text-white outline-none transition-colors hover:text-blue-200 focus-visible:ring-2 focus-visible:ring-blue-400/60 aria-pressed:bg-white/10 aria-pressed:text-blue-200"
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { dictionary, locale, setLocale } = useI18n();
+  const navItems = dictionary.nav.items;
+  const nav = dictionary.nav;
 
   return (
     <nav className="relative z-[99] bg-transparent">
@@ -24,7 +42,7 @@ function Navbar() {
           <Link
             href="/"
             className="w-fit rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
-            aria-label="Về đầu trang"
+            aria-label={nav.homeAriaLabel}
             onClick={() => setIsMenuOpen(false)}
           >
             <Image
@@ -37,15 +55,19 @@ function Navbar() {
             />
           </Link>
 
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((current) => !current)}
-            aria-label={isMenuOpen ? "Đóng menu" : "Mở menu"}
-            aria-expanded={isMenuOpen}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
-          >
-            {isMenuOpen ? <FiX size={22} aria-hidden="true" /> : <FiMenu size={22} aria-hidden="true" />}
-          </button>
+          <div className="flex items-center gap-2 md:order-3">
+            <LanguageToggle activeLocale={locale} label={nav.languageLabel} setLocale={setLocale} />
+
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((current) => !current)}
+              aria-label={isMenuOpen ? nav.closeMenuAriaLabel : nav.openMenuAriaLabel}
+              aria-expanded={isMenuOpen}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
+            >
+              {isMenuOpen ? <FiX size={22} aria-hidden="true" /> : <FiMenu size={22} aria-hidden="true" />}
+            </button>
+          </div>
 
           <ul className="hidden gap-2 rounded-full border border-white/10 bg-white/[0.03] p-2 text-sm md:flex md:flex-wrap md:justify-end">
             {navItems.map((item) => (

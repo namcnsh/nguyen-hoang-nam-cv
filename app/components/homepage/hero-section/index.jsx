@@ -1,19 +1,16 @@
+"use client";
 // @flow strict
 
-import { personalData } from "@/utils/data/personal-data";
+import { useI18n } from "@/app/components/i18n-provider";
 import Image from "next/image";
 import Link from "next/link";
 import { RiContactsFill } from "react-icons/ri";
 
 function HeroSection() {
-  const focusTags = [
-    "Meta Ads",
-    "Google Ads",
-    "TikTok Ads",
-    "SEO",
-    "landing page",
-    "phân tích dữ liệu marketing"
-  ].filter((tag) => personalData.description.toLowerCase().includes(tag.toLowerCase()));
+  const { dictionary } = useI18n();
+  const { personal } = dictionary;
+  const { hero } = dictionary.home;
+  const focusTags = hero.focusTags;
 
   return (
     <section className="relative flex flex-col items-center justify-between overflow-hidden py-6 lg:py-16">
@@ -29,13 +26,13 @@ function HeroSection() {
       <div className="grid grid-cols-1 items-center gap-y-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <div className="order-1 flex flex-col items-start justify-center p-2 pb-8 lg:pt-10">
           <span className="mb-5 rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
-            {personalData.designation}
+            {personal.designation}
           </span>
           <h1 className="text-4xl font-bold leading-tight text-white md:font-extrabold lg:text-[4rem] lg:leading-[4.6rem]">
-            {personalData.name}
+            {personal.name}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
-            {personalData.description}
+            {personal.description}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -48,11 +45,11 @@ function HeroSection() {
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="#contact" className="flex items-center gap-2 rounded-full bg-[#070913] px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white no-underline outline-none ring-1 ring-violet-500 transition-all duration-200 ease-out hover:ring-blue-400 focus-visible:ring-2 focus-visible:ring-blue-400/60 md:px-8 md:py-4">
-              <span>Liên hệ ngay</span>
+              <span>{hero.contactCta}</span>
               <RiContactsFill size={16} />
             </Link>
             <Link href="#featured-case-studies" className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-slate-100 outline-none transition-all duration-200 hover:border-violet-300/60 hover:text-white focus-visible:border-blue-300 focus-visible:ring-2 focus-visible:ring-blue-400/40 md:px-8 md:py-4">
-              Xem case study
+              {hero.caseStudyCta}
             </Link>
           </div>
         </div>
@@ -62,8 +59,8 @@ function HeroSection() {
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.10] to-white/[0.02] p-4 shadow-2xl shadow-blue-950/40 backdrop-blur">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-[#0d1224]">
               <Image
-                src={personalData.profile}
-                alt={personalData.name}
+                src={personal.profile}
+                alt={personal.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 460px"
                 className="object-cover"
@@ -71,8 +68,8 @@ function HeroSection() {
               />
             </div>
             <div className="mt-5 rounded-[1.25rem] border border-white/10 bg-[#070913]/80 p-5">
-              <h2 className="text-2xl font-bold text-white">{personalData.name}</h2>
-              <p className="mt-2 text-sm font-medium text-violet-200">{personalData.designation}</p>
+              <h2 className="text-2xl font-bold text-white">{personal.name}</h2>
+              <p className="mt-2 text-sm font-medium text-violet-200">{personal.designation}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {focusTags.map((tag) => (
                   <span key={tag} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-200">

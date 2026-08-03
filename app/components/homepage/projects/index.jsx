@@ -1,21 +1,25 @@
+"use client";
 import Link from 'next/link';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
-import { projectsData } from '@/utils/data/projects-data';
+import { useI18n } from '@/app/components/i18n-provider';
 
 const Projects = () => {
+  const { dictionary } = useI18n();
+  const { sections } = dictionary.home;
+  const { viewDemo } = dictionary.common;
 
   return (
     <section id="projects" className="relative z-50 my-12 lg:my-24">
       <div className="mb-8 flex items-center gap-4">
         <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-violet-100">
-          Dự án
+          {sections.projects}
         </span>
         <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
 
       <div className="grid gap-6">
-        {projectsData.slice(0, 4).map((project) => (
+        {dictionary.projects.slice(0, 4).map((project) => (
           <article
             id={`project-${project.id}`}
             key={project.id}
@@ -58,7 +62,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/50"
                   >
-                    <span>Xem demo</span>
+                    <span>{viewDemo}</span>
                     <FaExternalLinkAlt size={12} aria-hidden="true" />
                   </Link>
                 </div>
