@@ -39,3 +39,4 @@ next-env.d.ts
 
 # superpowers helper files
 .superpowers/
+.env*
