@@ -54,14 +54,14 @@ const Projects = () => {
                 ))}
               </div>
 
-              {project.demo ? (
-                <div className="mt-6 border-t border-white/10 pt-5">
-                  <Link
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/50"
-                  >
+                {project.demo ? (
+                  <div className="mt-6 border-t border-white/10 pt-5">
+                    <Link
+                      href={project.demo}
+                      target={project.demo.startsWith("/") ? undefined : "_blank"}
+                      rel={project.demo.startsWith("/") ? undefined : "noopener noreferrer"}
+                      className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/50"
+                    >
                     <span>{viewDemo}</span>
                     <FaExternalLinkAlt size={12} aria-hidden="true" />
                   </Link>

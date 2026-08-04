@@ -10,6 +10,10 @@ export const dictionaries = {
         title: "Dashboard phân tích quảng cáo - Nguyễn Hoàng Nam",
         description: "Dashboard minh họa cách phân tích hiệu quả quảng cáo theo kênh, lead, CPL và CTR.",
       },
+      seoGrowth: {
+        title: "Dashboard tăng trưởng SEO - Nguyễn Hoàng Nam",
+        description: "Case study SEO ngành giáo dục: technical SEO, phân tích GA4/GSC, chiến lược từ khóa, content gap và ứng dụng AI.",
+      },
     },
     nav: {
       items: [
@@ -87,6 +91,7 @@ export const dictionaries = {
         details: [
           "Facebook Ads: Nghiên cứu chân dung đối tượng mục tiêu, lên kế hoạch nội dung và phối hợp thiết kế hình ảnh/video quảng cáo; trực tiếp set up, tối ưu chi phí và theo dõi chỉ số chiến dịch đa lĩnh vực (F&B, Bất động sản, Golf).",
           "Google Ads: Phân tích từ khóa, nghiên cứu hành vi người dùng, triển khai các chiến dịch Google Shopping, Remarketing và áp dụng các kỹ thuật chặn click tặc để tối ưu chi phí quảng cáo phù hợp với ngân sách.",
+          "SEO: Rà soát cấu trúc website, phối hợp tối ưu onpage, nghiên cứu từ khóa, phân tích dữ liệu GA4/GSC và đề xuất hướng nội dung dựa trên search intent, content gap và hiệu quả chuyển đổi.",
         ],
       },
       {
@@ -142,13 +147,13 @@ export const dictionaries = {
       },
       {
         id: 3,
-        name: "Ứng dụng AI trong sáng tạo nội dung quảng cáo",
+        name: "Case study SEO tăng trưởng organic ngành giáo dục",
         description:
-          "Thử nghiệm xây dựng kênh TikTok bằng tư duy Vibe Coding và Agentic AI để kiểm chứng cách AI có thể hỗ trợ nghiên cứu nội dung, lên ý tưởng, sản xuất video và tối ưu quy trình sáng tạo. Dự án thể hiện tinh thần chủ động học hỏi, không ngại thử nghiệm công nghệ mới và luôn tìm cách ứng dụng AI để tăng tốc sản xuất creative, tối ưu quy trình làm việc và tạo thêm giá trị cho hoạt động tăng trưởng.",
-        tools: ["GPT", "Claude", "Agentic AI", "Vibe Coding", "Kling AI", "Veo 3", "Canva"],
-        role: "AI Marketer",
+          "Phân tích và tối ưu SEO cho website ngành giáo dục theo hướng ẩn danh: rà soát technical SEO, nghiên cứu từ khóa theo search intent, phát hiện content gap, theo dõi dữ liệu GA4/GSC và đề xuất hành động giúp tăng trưởng organic traffic, keyword visibility và lead chất lượng.",
+        tools: ["Technical SEO", "GA4", "Google Search Console", "Keyword Research", "Content Gap", "Schema.org", "Core Web Vitals", "AI SEO"],
+        role: "SEO / Digital Marketing Specialist",
         code: "",
-        demo: "https://www.tiktok.com/@bogdadata",
+        demo: "/seo-growth",
       },
     ],
     skills: [
@@ -162,6 +167,14 @@ export const dictionaries = {
       "Microsoft Office",
       "Markdown",
       "Vibe Coding",
+      "Technical SEO",
+      "GA4",
+      "Google Search Console",
+      "Keyword Research",
+      "Content Strategy",
+      "Schema.org",
+      "Core Web Vitals",
+      "AI SEO Literacy",
     ],
     contact: {
       title: "Liên hệ",
@@ -293,6 +306,68 @@ export const dictionaries = {
       actionsSubtitle: "Recommended next actions",
       actionsDescription: "Các hành động ưu tiên giúp cải thiện chất lượng lead, tối ưu chi phí và kiểm soát ngân sách theo từng kênh.",
     },
+    seoGrowth: {
+      back: "Về portfolio",
+      headerBadges: ["Case study SEO", "Website giáo dục"],
+      title: "Dashboard tăng trưởng SEO ngành giáo dục",
+      description: "Trang này trình bày cách tôi phân tích, tối ưu và báo cáo tăng trưởng SEO cho một website ngành giáo dục theo hướng ẩn danh để bảo mật thông tin công ty cũ.",
+      snapshot: "Dữ liệu đã được ẩn danh",
+      beforeLabel: "Trước tối ưu",
+      afterLabel: "Sau tối ưu",
+      metricLabels: {
+        clicks: "Lượt nhấp tự nhiên",
+        impressions: "Lượt hiển thị",
+        leads: "Lead chất lượng",
+      },
+      kpis: [
+        { label: "Lượt nhấp tự nhiên", before: "4.200", after: "7.850", change: "+87%" },
+        { label: "Lượt hiển thị", before: "118.000", after: "226.000", change: "+92%" },
+        { label: "CTR", before: "3,6%", after: "4,2%", change: "+0,6 điểm %" },
+        { label: "Trang đã index", before: "86", after: "132", change: "+53%" },
+        { label: "Lead chất lượng", before: "64", after: "109", change: "+70%" },
+      ],
+      sections: {
+        kpi: "KPI trước/sau",
+        trend: "Xu hướng organic",
+        strategy: "Chiến lược SEO",
+        health: "Tình trạng kỹ thuật",
+        keywords: "Biến động từ khóa",
+        content: "Kết quả từ content gap",
+        takeaway: "Điểm nhà tuyển dụng nên chú ý",
+      },
+      trendRows: [
+        { label: "Giai đoạn 1", clicks: 4200, impressions: 118000, leads: 64 },
+        { label: "Giai đoạn 2", clicks: 5100, impressions: 146000, leads: 73 },
+        { label: "Giai đoạn 3", clicks: 6400, impressions: 188000, leads: 91 },
+        { label: "Giai đoạn 4", clicks: 7850, impressions: 226000, leads: 109 },
+      ],
+      strategies: [
+        { title: "Technical SEO", description: "Kiểm tra crawl/indexing, canonical, sitemap, broken links, Core Web Vitals và schema để giảm rào cản thu thập dữ liệu." },
+        { title: "Phân tích GA4/GSC", description: "Theo dõi query, landing page, CTR, conversion path và phân biệt tương quan với nguyên nhân trước khi đề xuất hành động." },
+        { title: "Chiến lược từ khóa & nội dung", description: "Phân nhóm keyword theo search intent, chọn định dạng nội dung phù hợp và ưu tiên chủ đề có khả năng tạo lead." },
+        { title: "Ứng dụng AI trong SEO", description: "Dùng AI để hỗ trợ nghiên cứu, gom nhóm insight và tối ưu nội dung để tăng khả năng được trích dẫn trong các hệ thống trả lời AI." },
+      ],
+      technicalHealth: [
+        { label: "Liên kết lỗi", value: "Giảm 41%", note: "Ưu tiên URL ảnh hưởng crawling và trải nghiệm người dùng." },
+        { label: "Core Web Vitals", value: "Cải thiện", note: "Tập trung LCP, CLS và tốc độ tải trang chính." },
+        { label: "Độ phủ schema", value: "Mở rộng", note: "Bổ sung cấu trúc dữ liệu phù hợp nội dung giáo dục." },
+      ],
+      keywordMovement: [
+        { group: "Thông tin", before: 18, after: 34 },
+        { group: "Thương mại", before: 9, after: 17 },
+        { group: "Thương hiệu", before: 12, after: 21 },
+      ],
+      contentWins: [
+        "Xác định nhóm chủ đề đối thủ chưa khai thác sâu.",
+        "Ưu tiên bài viết theo intent tư vấn/chọn khóa học.",
+        "Cập nhật internal link để đẩy sức mạnh về landing page có khả năng chuyển đổi.",
+      ],
+      takeaways: [
+        "Tôi không chỉ nhìn số liệu tăng/giảm, mà tìm nguyên nhân có thể hành động.",
+        "Tôi biết kết nối technical SEO, content và dữ liệu GA4/GSC với mục tiêu lead.",
+        "Tôi có thể trình bày kết quả SEO bằng dashboard rõ ràng cho người không chuyên kỹ thuật.",
+      ],
+    },
   },
   en: {
     metadata: {
@@ -304,6 +379,10 @@ export const dictionaries = {
       dashboard: {
         title: "Advertising analysis dashboard - Nguyễn Hoàng Nam",
         description: "Dashboard illustrating how to analyze advertising effectiveness by channel, lead, CPL, and CTR.",
+      },
+      seoGrowth: {
+        title: "SEO Growth Dashboard - Nguyễn Hoàng Nam",
+        description: "Education SEO case study covering technical SEO, GA4/GSC analysis, keyword strategy, content gaps, and AI literacy.",
       },
     },
     nav: {
@@ -382,6 +461,7 @@ export const dictionaries = {
         details: [
           "Facebook Ads: Research target audience personas, plan content and coordinate image/video ad design; directly set up, optimize costs, and track campaign metrics across multiple fields (F&B, Real estate, Golf).",
           "Google Ads: Analyze keywords, research user behavior, implement Google Shopping and Remarketing campaigns, and apply click fraud blocking techniques to optimize advertising costs within budget.",
+          "SEO: Reviewed website structure, supported on-page optimization, researched keywords, analyzed GA4/GSC data, and proposed content directions based on search intent, content gaps, and conversion performance.",
         ],
       },
       {
@@ -437,13 +517,13 @@ export const dictionaries = {
       },
       {
         id: 3,
-        name: "AI application in advertising content creation",
+        name: "SEO Growth Case Study for an Education Website",
         description:
-          "Experiment with building a TikTok channel using Vibe Coding and Agentic AI thinking to validate how AI can support content research, ideation, video production, and creative workflow optimization. The project shows a proactive learning mindset, willingness to experiment with new technology, and always finding ways to apply AI to accelerate creative production, optimize workflows, and create more value for growth activities.",
-        tools: ["GPT", "Claude", "Agentic AI", "Vibe Coding", "Kling AI", "Veo 3", "Canva"],
-        role: "AI Marketer",
+          "An anonymized education SEO case study covering technical SEO review, search-intent keyword research, content gap analysis, GA4/GSC tracking, and action planning to improve organic traffic, keyword visibility, and qualified leads.",
+        tools: ["Technical SEO", "GA4", "Google Search Console", "Keyword Research", "Content Gap", "Schema.org", "Core Web Vitals", "AI SEO"],
+        role: "SEO / Digital Marketing Specialist",
         code: "",
-        demo: "https://www.tiktok.com/@bogdadata",
+        demo: "/seo-growth",
       },
     ],
     skills: [
@@ -457,6 +537,14 @@ export const dictionaries = {
       "Microsoft Office",
       "Markdown",
       "Vibe Coding",
+      "Technical SEO",
+      "GA4",
+      "Google Search Console",
+      "Keyword Research",
+      "Content Strategy",
+      "Schema.org",
+      "Core Web Vitals",
+      "AI SEO Literacy",
     ],
     contact: {
       title: "Contact",
@@ -587,6 +675,68 @@ export const dictionaries = {
       actionsTitle: "Optimization recommendations",
       actionsSubtitle: "Recommended next actions",
       actionsDescription: "Priority actions that help improve lead quality, optimize costs, and control budget by each channel.",
+    },
+    seoGrowth: {
+      back: "Back to portfolio",
+      headerBadges: ["SEO Case Study", "Education Website"],
+      title: "SEO growth dashboard for an education website",
+      description: "This page shows how I analyze, optimize, and report SEO growth for an anonymized education website while protecting previous company information.",
+      snapshot: "Anonymized performance data",
+      beforeLabel: "Before",
+      afterLabel: "After",
+      metricLabels: {
+        clicks: "Organic clicks",
+        impressions: "Impressions",
+        leads: "Qualified leads",
+      },
+      kpis: [
+        { label: "Organic clicks", before: "4,200", after: "7,850", change: "+87%" },
+        { label: "Impressions", before: "118,000", after: "226,000", change: "+92%" },
+        { label: "CTR", before: "3.6%", after: "4.2%", change: "+0.6 pts" },
+        { label: "Indexed pages", before: "86", after: "132", change: "+53%" },
+        { label: "Qualified leads", before: "64", after: "109", change: "+70%" },
+      ],
+      sections: {
+        kpi: "Before/after KPIs",
+        trend: "Organic trend",
+        strategy: "SEO strategy",
+        health: "Technical health",
+        keywords: "Keyword movement",
+        content: "Content gap wins",
+        takeaway: "Recruiter takeaways",
+      },
+      trendRows: [
+        { label: "Phase 1", clicks: 4200, impressions: 118000, leads: 64 },
+        { label: "Phase 2", clicks: 5100, impressions: 146000, leads: 73 },
+        { label: "Phase 3", clicks: 6400, impressions: 188000, leads: 91 },
+        { label: "Phase 4", clicks: 7850, impressions: 226000, leads: 109 },
+      ],
+      strategies: [
+        { title: "Technical SEO", description: "Audited crawling/indexing, canonical tags, sitemap, broken links, Core Web Vitals, and schema to reduce discovery barriers." },
+        { title: "GA4/GSC analysis", description: "Tracked queries, landing pages, CTR, conversion paths, and separated correlation from causation before recommending actions." },
+        { title: "Keyword & content strategy", description: "Grouped keywords by search intent, selected suitable content formats, and prioritized topics with lead potential." },
+        { title: "AI literacy", description: "Used AI to support research, cluster insights, and optimize content for better citation potential in AI answer systems." },
+      ],
+      technicalHealth: [
+        { label: "Broken links", value: "Down 41%", note: "Prioritized URLs affecting crawling and user experience." },
+        { label: "Core Web Vitals", value: "Improved", note: "Focused on LCP, CLS, and key page load speed." },
+        { label: "Schema coverage", value: "Expanded", note: "Added structured data aligned with education content." },
+      ],
+      keywordMovement: [
+        { group: "Informational", before: 18, after: 34 },
+        { group: "Commercial", before: 9, after: 17 },
+        { group: "Brand", before: 12, after: 21 },
+      ],
+      contentWins: [
+        "Identified topic groups competitors had not covered deeply.",
+        "Prioritized articles around consultation and course-selection intent.",
+        "Updated internal links to strengthen conversion-focused landing pages.",
+      ],
+      takeaways: [
+        "I do not only report increases or drops; I look for actionable causes.",
+        "I connect technical SEO, content, and GA4/GSC data to lead goals.",
+        "I can present SEO results clearly through dashboards for non-technical reviewers.",
+      ],
     },
   },
 };
