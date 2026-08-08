@@ -27,6 +27,7 @@ export const experiences = [
     duration: "(05/2021 - 01/2023)",
     details: [
       "Facebook Ads: Nghiên cứu hành vi khách hàng, lên ý tưởng content quảng cáo và phối hợp cùng team thiết kế; edit video quảng cáo trên Canva, triển khai quảng cáo đa ngành (Du lịch, Y tế, F&B, BĐS, Thời trang, Thực phẩm chức năng).",
+      "Leader team Facebook Ads: Đảm nhận vai trò leader team Facebook Ads 6 người, tôi quản lý phân bổ nhân sự theo từng chiến dịch, lập kế hoạch công việc, theo dõi tiến độ triển khai, kiểm tra chất lượng setup và nội dung quảng cáo; đồng thời review hiệu quả định kỳ, hướng dẫn thành viên xử lý vấn đề phát sinh và hỗ trợ tối ưu chiến dịch để đảm bảo team vận hành đúng mục tiêu.",
       "Google Ads: Thiết kế Landing Page, nghiên cứu từ khóa và tối ưu ngân sách cho các ngành (Tài chính, BĐS, Du lịch, F&B); cài đặt chiến dịch Shopping, Remarketing và áp dụng phương pháp chặn click tặc.",
       "Quản lý Fanpage: Lên ý tưởng và triển khai các tuyến bài viết theo tháng, liên tục cập nhật tin tức liên quan đến dịch vụ và sản phẩm để duy trì tương tác."
     ]

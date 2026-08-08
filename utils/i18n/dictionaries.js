@@ -101,6 +101,7 @@ export const dictionaries = {
         duration: "(05/2021 - 01/2023)",
         details: [
           "Facebook Ads: Nghiên cứu hành vi khách hàng, lên ý tưởng content quảng cáo và phối hợp cùng team thiết kế; edit video quảng cáo trên Canva, triển khai quảng cáo đa ngành (Du lịch, Y tế, F&B, BĐS, Thời trang, Thực phẩm chức năng).",
+          "Leader team Facebook Ads: Đảm nhận vai trò leader team Facebook Ads 6 người, tôi quản lý phân bổ nhân sự theo từng chiến dịch, lập kế hoạch công việc, theo dõi tiến độ triển khai, kiểm tra chất lượng setup và nội dung quảng cáo; đồng thời review hiệu quả định kỳ, hướng dẫn thành viên xử lý vấn đề phát sinh và hỗ trợ tối ưu chiến dịch để đảm bảo team vận hành đúng mục tiêu.",
           "Google Ads: Thiết kế Landing Page, nghiên cứu từ khóa và tối ưu ngân sách cho các ngành (Tài chính, BĐS, Du lịch, F&B); cài đặt chiến dịch Shopping, Remarketing và áp dụng phương pháp chặn click tặc.",
           "Quản lý Fanpage: Lên ý tưởng và triển khai các tuyến bài viết theo tháng, liên tục cập nhật tin tức liên quan đến dịch vụ và sản phẩm để duy trì tương tác.",
         ],
@@ -471,6 +472,7 @@ export const dictionaries = {
         duration: "(05/2021 - 01/2023)",
         details: [
           "Facebook Ads: Research customer behavior, develop advertising content ideas and coordinate with the design team; edit advertising videos on Canva, implement ads across industries (Travel, Healthcare, F&B, Real estate, Fashion, Functional foods).",
+          "Facebook Ads team leadership: As the leader of a 6-member Facebook Ads team, I managed team allocation by campaign, planned tasks, tracked execution progress, and reviewed setup quality and ad content. I also conducted regular performance reviews, guided team members in handling issues, and supported campaign optimization to keep the team aligned with campaign goals.",
           "Google Ads: Design Landing Pages, research keywords, and optimize budgets for industries (Finance, Real estate, Travel, F&B); set up Shopping and Remarketing campaigns and apply click fraud blocking methods.",
           "Fanpage management: Develop ideas and implement monthly post series, continuously update news related to services and products to maintain engagement.",
         ],
