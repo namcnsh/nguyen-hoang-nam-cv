@@ -57,6 +57,7 @@ export const dictionaries = {
         about: "Giới thiệu",
         featuredCaseStudies: "Case study nổi bật",
         experience: "Kinh nghiệm",
+        adsScreenshots: "Ảnh trình quản lý quảng cáo",
         skills: "Kỹ năng",
         education: "Học vấn",
         projects: "Dự án",
@@ -70,6 +71,30 @@ export const dictionaries = {
         "Phối hợp linh hoạt cùng team creative để cải thiện tỷ lệ chuyển đổi.",
         "Kết hợp landing page, dữ liệu marketing và AI để hỗ trợ tăng trưởng.",
       ],
+      adsScreenshotsIntro:
+        "Một số ảnh chụp màn hình từ các nền tảng Google Ads, Facebook Ads và TikTok Ads, thể hiện kinh nghiệm làm việc trực tiếp với tài khoản quảng cáo và dữ liệu chiến dịch.",
+      adsScreenshotsLabels: {
+        google1: {
+          alt: "Ảnh chụp màn hình trình quản lý quảng cáo Google Ads 01",
+          open: "Mở ảnh chụp màn hình Google Ads 01",
+        },
+        google2: {
+          alt: "Ảnh chụp màn hình trình quản lý quảng cáo Google Ads 02",
+          open: "Mở ảnh chụp màn hình Google Ads 02",
+        },
+        google3: {
+          alt: "Ảnh chụp màn hình trình quản lý quảng cáo Google Ads 03",
+          open: "Mở ảnh chụp màn hình Google Ads 03",
+        },
+        facebook1: {
+          alt: "Ảnh chụp màn hình trình quản lý quảng cáo Facebook Ads",
+          open: "Mở ảnh chụp màn hình Facebook Ads",
+        },
+        tiktok1: {
+          alt: "Ảnh chụp màn hình trình quản lý quảng cáo TikTok Ads",
+          open: "Mở ảnh chụp màn hình TikTok Ads",
+        },
+      },
     },
     experiences: [
       {
@@ -222,6 +247,7 @@ export const dictionaries = {
       notFoundTitle: "Page Not Found",
       notFoundDescription: "Sorry, the page you are looking for does not exist.",
       goHome: "Go to Home",
+      close: "Đóng",
     },
     dashboard: {
       metricOptions: [
@@ -428,6 +454,7 @@ export const dictionaries = {
         about: "About",
         featuredCaseStudies: "Featured case study",
         experience: "Experience",
+        adsScreenshots: "Ads manager screenshots",
         skills: "Skills",
         education: "Education",
         projects: "Projects",
@@ -441,6 +468,30 @@ export const dictionaries = {
         "Coordinate flexibly with the creative team to improve conversion rates.",
         "Combine landing pages, marketing data, and AI to support growth.",
       ],
+      adsScreenshotsIntro:
+        "Selected screenshots from Google Ads, Facebook Ads, and TikTok Ads interfaces, showing hands-on work with ad accounts and campaign data.",
+      adsScreenshotsLabels: {
+        google1: {
+          alt: "Google Ads ads manager screenshot 01",
+          open: "Open Google Ads screenshot 01",
+        },
+        google2: {
+          alt: "Google Ads ads manager screenshot 02",
+          open: "Open Google Ads screenshot 02",
+        },
+        google3: {
+          alt: "Google Ads ads manager screenshot 03",
+          open: "Open Google Ads screenshot 03",
+        },
+        facebook1: {
+          alt: "Facebook Ads ads manager screenshot",
+          open: "Open Facebook Ads screenshot",
+        },
+        tiktok1: {
+          alt: "TikTok Ads ads manager screenshot",
+          open: "Open TikTok Ads screenshot",
+        },
+      },
     },
     experiences: [
       {
@@ -593,6 +644,7 @@ export const dictionaries = {
       notFoundTitle: "Page Not Found",
       notFoundDescription: "Sorry, the page you are looking for does not exist.",
       goHome: "Go to Home",
+      close: "Close",
     },
     dashboard: {
       metricOptions: [
