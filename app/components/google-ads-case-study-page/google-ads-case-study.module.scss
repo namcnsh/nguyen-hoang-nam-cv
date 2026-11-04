@@ -1,0 +1,126 @@
+.page {
+  --case-ink-950: #050816;
+  --case-ink-900: #080d20;
+  --case-ink-800: #121a2b;
+  --case-violet-500: #8b5cf6;
+  --case-violet-200: #ddd6fe;
+  --case-teal-300: #5eead4;
+  --case-white: #ffffff;
+  --case-slate-200: #e2e8f0;
+  --case-slate-400: #94a3b8;
+  --case-bg: var(--case-ink-950);
+  --case-surface: var(--case-ink-800);
+  --case-text: var(--case-white);
+  --case-muted: var(--case-slate-200);
+  --case-accent: var(--case-teal-300);
+  --case-card-border: rgb(255 255 255 / 12%);
+  --case-card-radius: 28px;
+  --case-card-pad: 28px;
+  --case-focus: var(--case-teal-300);
+
+  display: flex;
+  width: 100%;
+  max-width: 1152px;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 24px 0 64px;
+  color: var(--case-text);
+}
+
+.backRow { display: flex; justify-content: flex-start; }
+.backLink { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; border-radius: 999px; padding: 8px 14px; color: var(--case-muted); font-size: 14px; text-decoration: none; transition: color 200ms ease, background-color 200ms ease; }
+.backLink:hover { background: rgb(255 255 255 / 5%); color: var(--case-white); }
+.backLink:focus-visible, .contactButton:focus-visible { outline: 2px solid var(--case-focus); outline-offset: 3px; }
+
+.hero, .panel, .kpiCard, .takeaway {
+  border: 1px solid var(--case-card-border);
+  border-radius: var(--case-card-radius);
+  background: linear-gradient(155deg, rgb(18 26 43 / 96%) 0%, rgb(8 13 32 / 98%) 100%);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 22%);
+}
+
+.hero { display: grid; gap: 32px; overflow: hidden; padding: var(--case-card-pad); background-image: radial-gradient(circle at 100% 0%, rgb(45 212 191 / 10%), transparent 36%), linear-gradient(155deg, rgb(18 26 43 / 96%) 0%, rgb(8 13 32 / 98%) 100%); }
+.heroCopy { min-width: 0; }
+.eyebrow { color: var(--case-violet-200); font-size: 12px; font-weight: 700; letter-spacing: .2em; line-height: 1.5; }
+.heroTitle { margin-top: 16px; color: var(--case-white); font-size: 36px; font-weight: 700; letter-spacing: -.035em; line-height: 1.12; }
+.heroIntro { max-width: 68ch; margin-top: 20px; color: var(--case-muted); font-size: 16px; line-height: 1.65; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.chips span { display: inline-flex; min-height: 36px; align-items: center; border: 1px solid rgb(255 255 255 / 12%); border-radius: 999px; background: rgb(255 255 255 / 4%); padding: 6px 12px; color: var(--case-slate-200); font-size: 12px; font-weight: 600; }
+.heroChart { min-width: 0; align-self: center; border: 1px solid rgb(255 255 255 / 9%); border-radius: 20px; background: rgb(5 8 22 / 62%); padding: 20px; }
+.chartCaption { margin-bottom: 16px; color: var(--case-teal-300); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.heroBars { display: grid; gap: 12px; }
+.heroBarRow { display: grid; grid-template-columns: 52px minmax(32px, 1fr) auto; align-items: center; gap: 10px; }
+.heroQuarter { color: var(--case-slate-400); font-size: 11px; font-variant-numeric: tabular-nums; }
+.heroTrack, .quarterTrack { display: block; height: 9px; overflow: hidden; border-radius: 999px; background: rgb(255 255 255 / 10%); }
+.heroFill, .quarterFill { display: block; height: 100%; min-width: 2px; border-radius: inherit; background: linear-gradient(90deg, var(--case-violet-500), var(--case-teal-300)); }
+.heroAmount { color: var(--case-slate-200); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.heroChartNote { margin-top: 16px; color: var(--case-slate-400); font-size: 12px; line-height: 1.5; }
+
+.kpiSection { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.kpiCard { min-width: 0; padding: 20px; }
+.kpiLabel { color: var(--case-slate-400); font-size: 12px; font-weight: 600; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
+.kpiValue { margin-top: 14px; color: var(--case-white); font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.03em; line-height: 1.15; overflow-wrap: anywhere; }
+.kpiDetail { margin-top: 8px; color: var(--case-teal-300); font-size: 14px; line-height: 1.5; }
+
+.contextGrid { display: grid; gap: 24px; }
+.panel { padding: 20px; }
+.sectionTitle { color: var(--case-white); font-size: 24px; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; }
+.bodyCopy { max-width: 72ch; margin-top: 16px; color: var(--case-muted); font-size: 16px; line-height: 1.65; }
+.roleLine { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-top: 24px; border-top: 1px solid rgb(255 255 255 / 10%); padding-top: 16px; color: var(--case-slate-400); font-size: 13px; }
+.roleLine strong { color: var(--case-violet-200); font-weight: 600; }
+.executionList { display: grid; gap: 18px; margin-top: 20px; }
+.executionList li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; color: var(--case-muted); font-size: 15px; line-height: 1.65; }
+.executionIndex { color: var(--case-teal-300); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+
+.sectionHeading { display: flex; flex-direction: column; gap: 16px; }
+.partialNote { max-width: 34ch; align-self: flex-start; border-left: 2px solid var(--case-teal-300); padding-left: 12px; color: var(--case-slate-400); font-size: 13px; line-height: 1.55; }
+.quarterList { margin-top: 24px; }
+.quarterRow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; border-bottom: 1px solid rgb(255 255 255 / 9%); padding: 16px 0; }
+.quarterRow:last-child { border-bottom: 0; }
+.quarterHeader { display: none; }
+.quarterName { grid-column: 1 / -1; color: var(--case-white); font-size: 14px; font-weight: 700; }
+.quarterCell { display: flex; flex-direction: column; gap: 5px; color: var(--case-slate-200); font-size: 13px; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.mobileLabel { color: var(--case-slate-400); font-size: 11px; font-variant-numeric: normal; }
+.quarterBarCell { grid-column: 1 / -1; display: flex; align-items: center; }
+.quarterTrack { width: 100%; height: 10px; }
+.sourceList { display: grid; gap: 14px; margin-top: 16px; }
+.sourceList li { color: var(--case-muted); font-size: 14px; line-height: 1.65; }
+.takeaway { border-color: rgb(94 234 212 / 24%); background: linear-gradient(140deg, rgb(45 212 191 / 10%), rgb(18 26 43 / 96%) 52%, rgb(8 13 32 / 98%)); padding: 24px 20px; }
+.takeawayCopy { max-width: 72ch; margin-top: 14px; color: var(--case-slate-200); font-size: 16px; line-height: 1.7; }
+.contactButton { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; margin-top: 24px; border-radius: 999px; background: var(--case-white); padding: 12px 18px; color: #070913; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform 200ms ease, background-color 200ms ease; }
+.contactButton:hover { transform: translateY(-2px); background: #f0fdfa; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+
+@media (min-width: 640px) {
+  .page { gap: 28px; padding-top: 32px; }
+  .hero, .panel { padding: 28px; }
+  .kpiSection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpiCard { padding: 24px; }
+  .takeaway { padding: 32px; }
+}
+
+@media (min-width: 768px) {
+  .contextGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sectionHeading { flex-direction: row; align-items: flex-start; justify-content: space-between; }
+  .partialNote { margin-top: 4px; }
+  .quarterRow { grid-template-columns: minmax(90px, .75fr) minmax(0, 1fr) minmax(0, 1fr) minmax(120px, 1.2fr); align-items: center; gap: 16px; }
+  .quarterHeader { display: grid; border-bottom-color: rgb(255 255 255 / 16%); padding: 0 0 12px; color: var(--case-slate-400); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .quarterName { grid-column: auto; }
+  .quarterCell { display: block; font-size: 14px; }
+  .mobileLabel { display: none; }
+  .quarterBarCell { grid-column: auto; }
+}
+
+@media (min-width: 1024px) {
+  .page { gap: 28px; padding-top: 40px; }
+  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 32px; padding: 36px; }
+  .heroTitle { font-size: 52px; }
+  .kpiSection { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .sectionTitle { font-size: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backLink, .contactButton { transition: none; }
+  .contactButton:hover { transform: none; }
+}

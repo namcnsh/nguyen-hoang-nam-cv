@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaArrowRight, FaExternalLinkAlt } from "react-icons/fa";
 
 import { useI18n } from "@/app/components/i18n-provider";
 
-const selectedProjectIds = [1, 2, 3];
+const selectedProjectIds = [1, 2, 3, 4];
 
 function FeaturedCaseStudies() {
   const { dictionary } = useI18n();
@@ -23,7 +23,7 @@ function FeaturedCaseStudies() {
         <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2">
         {projects.map((project) => {
           const demoHref = project.id === 2 ? "/dashboard-demo" : project.demo;
 
@@ -32,12 +32,14 @@ function FeaturedCaseStudies() {
               key={project.id}
               className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(14,18,36,0.92)_0%,rgba(8,10,24,0.98)_100%)] p-6 shadow-[0_0_40px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1"
             >
+              {project.id === 4 ? <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-teal-300/70 via-teal-200/50 to-transparent" /> : null}
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative flex h-full flex-col">
                 <div className="mb-5 flex items-center justify-between gap-4">
                   <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200">
                     #{project.id}
                   </span>
+                  {project.id === 4 ? <span className="text-xs font-medium uppercase tracking-[0.18em] text-teal-200">Google Ads · 2019–2020</span> : null}
                 </div>
 
                 <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{project.name}</h3>
@@ -58,9 +60,9 @@ function FeaturedCaseStudies() {
                   </div>
 
                   {demoHref ? (
-                    <Link href={demoHref} target={demoHref.startsWith("/") ? undefined : "_blank"} rel={demoHref.startsWith("/") ? undefined : "noopener noreferrer"} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-400/50">
-                      <span>{viewDemo}</span>
-                      <FaExternalLinkAlt size={12} aria-hidden="true" />
+                    <Link href={demoHref} target={demoHref.startsWith("/") ? undefined : "_blank"} rel={demoHref.startsWith("/") ? undefined : "noopener noreferrer"} className={`inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080a18] ${project.id === 4 ? "ring-1 ring-teal-300/40" : ""}`}>
+                      <span>{project.ctaLabel ?? viewDemo}</span>
+                      {demoHref.startsWith("/") ? <FaArrowRight size={12} aria-hidden="true" /> : <FaExternalLinkAlt size={12} aria-hidden="true" />}
                     </Link>
                   ) : null}
                 </div>

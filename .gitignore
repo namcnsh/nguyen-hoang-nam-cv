@@ -37,6 +37,9 @@ next-env.d.ts
 
 .worktrees/
 
+# Local source exports for the feng shui case study
+/D*case study cho website portfolio/
+
 # superpowers helper files
 .superpowers/
 .env*

@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
 
 import { useI18n } from '@/app/components/i18n-provider';
 
@@ -60,10 +60,10 @@ const Projects = () => {
                       href={project.demo}
                       target={project.demo.startsWith("/") ? undefined : "_blank"}
                       rel={project.demo.startsWith("/") ? undefined : "noopener noreferrer"}
-                      className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition focus-visible:ring-2 focus-visible:ring-blue-400/50"
+                      className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#070913] outline-none transition focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080a18]"
                     >
-                    <span>{viewDemo}</span>
-                    <FaExternalLinkAlt size={12} aria-hidden="true" />
+                    <span>{project.ctaLabel ?? viewDemo}</span>
+                    {project.demo.startsWith("/") ? <FaArrowRight size={12} aria-hidden="true" /> : <FaExternalLinkAlt size={12} aria-hidden="true" />}
                   </Link>
                 </div>
               ) : null}
