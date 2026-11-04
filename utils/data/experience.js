@@ -3,7 +3,7 @@ export const experiences = [
     id: 1,
     title: 'Digital Marketing',
     company: "Công ty Cổ phần Bất Động Sản Joy Homes",
-    duration: "(02/2025 - Hiện tại)",
+    duration: "(02/2025 - 04/2026)",
     details: [
       "Lên kế hoạch, triển khai và tối ưu hóa các chiến dịch quảng cáo đa nền tảng (Google, Meta, Tiktok); theo dõi chặt chẽ các chỉ số CPC, CTR, CPM.",
       "Thiết kế Landing Page phối cảnh 360° (sử dụng Visual Studio Code, Claude Sonnet) và chỉnh sửa video quảng cáo bằng Kling AI, Veo 3, Canva.",
@@ -24,7 +24,7 @@ export const experiences = [
     id: 3,
     title: "Digital Marketing",
     company: "Agency",
-    duration: "(05/2021 - 01/2023)",
+    duration: "(05/2019 - 01/2023)",
     details: [
       "Facebook Ads: Nghiên cứu hành vi khách hàng, lên ý tưởng content quảng cáo và phối hợp cùng team thiết kế; edit video quảng cáo trên Canva, triển khai quảng cáo đa ngành (Du lịch, Y tế, F&B, BĐS, Thời trang, Thực phẩm chức năng).",
       "Leader team Facebook Ads: Đảm nhận vai trò leader team Facebook Ads 6 người, tôi quản lý phân bổ nhân sự theo từng chiến dịch, lập kế hoạch công việc, theo dõi tiến độ triển khai, kiểm tra chất lượng setup và nội dung quảng cáo; đồng thời review hiệu quả định kỳ, hướng dẫn thành viên xử lý vấn đề phát sinh và hỗ trợ tối ưu chiến dịch để đảm bảo team vận hành đúng mục tiêu.",
@@ -36,7 +36,7 @@ export const experiences = [
     id: 4,
     title: "Nhân viên Digital Marketing",
     company: "VNPAY Group – VNSHOP",
-    duration: "(05/2019 - 05/2021)",
+    duration: "(05/2018 - 04/2019)",
     details: [
       "SEO Website: Phụ trách viết bài SEO, nghiên cứu xu hướng và tối ưu hóa Onpage cho trang tintuc.vnshop.vn.",
       "Facebook Ads: Triển khai chiến dịch quảng cáo dòng sản phẩm Mẹ & Bé; phối hợp xây dựng ý tưởng content và Landing Page; liên tục phân tích số liệu hành vi người dùng để tối ưu chi phí.",
