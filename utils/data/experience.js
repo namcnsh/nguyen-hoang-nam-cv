@@ -1,6 +1,18 @@
 export const experiences = [
   {
     id: 1,
+    title: 'SEO Specialist',
+    company: "Thomasnet.com · Làm việc từ xa",
+    duration: "(06/2026 - Hiện tại)",
+    details: [
+      "Thực hiện technical SEO audit và health check định kỳ cho các đối tác Thomasnet; rà soát khả năng crawl/index, canonical, redirect, liên kết nội bộ, dữ liệu có cấu trúc và hiệu năng trang.",
+      "Phân tích dữ liệu Google Search Console, Screaming Frog và PageSpeed Insights để xác định, nhóm và ưu tiên các vấn đề SEO theo phạm vi ảnh hưởng.",
+      "Chuyển phát hiện thành khuyến nghị triển khai cho team dev, nêu rõ trang hoặc nhóm trang ảnh hưởng, hành động mong muốn và tiêu chí nghiệm thu.",
+      "Phối hợp với team dev tối ưu technical SEO và GEO cho các đối tác Thomasnet."
+    ]
+  },
+  {
+    id: 2,
     title: 'Digital Marketing',
     company: "Công ty Cổ phần Bất Động Sản Joy Homes",
     duration: "(02/2025 - 04/2026)",
@@ -11,7 +23,7 @@ export const experiences = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     title: "Digital Marketing / Performance Marketing",
     company: "Công ty Cổ phần Đầu tư Evergreen Invest",
     duration: "(01/2023 - 12/2024)",
@@ -21,7 +33,7 @@ export const experiences = [
     ]
   },
   {
-    id: 3,
+    id: 4,
     title: "Digital Marketing",
     company: "Agency",
     duration: "(05/2019 - 01/2023)",
@@ -33,7 +45,7 @@ export const experiences = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     title: "Nhân viên Digital Marketing",
     company: "VNPAY Group – VNSHOP",
     duration: "(05/2018 - 04/2019)",

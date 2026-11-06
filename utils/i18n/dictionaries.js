@@ -144,6 +144,18 @@ export const dictionaries = {
     experiences: [
       {
         id: 1,
+        title: "SEO Specialist",
+        company: "Thomasnet.com · Làm việc từ xa",
+        duration: "(06/2026 - Hiện tại)",
+        details: [
+          "Thực hiện technical SEO audit và health check định kỳ cho các đối tác Thomasnet; rà soát khả năng crawl/index, canonical, redirect, liên kết nội bộ, dữ liệu có cấu trúc và hiệu năng trang.",
+          "Phân tích dữ liệu Google Search Console, Screaming Frog và PageSpeed Insights để xác định, nhóm và ưu tiên các vấn đề SEO theo phạm vi ảnh hưởng.",
+          "Chuyển phát hiện thành khuyến nghị triển khai cho team dev, nêu rõ trang hoặc nhóm trang ảnh hưởng, hành động mong muốn và tiêu chí nghiệm thu.",
+          "Phối hợp với team dev tối ưu technical SEO và GEO cho các đối tác Thomasnet.",
+        ],
+      },
+      {
+        id: 2,
         title: "Digital Marketing",
         company: "Công ty Cổ phần Bất Động Sản Joy Homes",
         duration: "(02/2025 - 04/2026)",
@@ -154,7 +166,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 2,
+        id: 3,
         title: "Digital Marketing / Performance Marketing",
         company: "Công ty Cổ phần Đầu tư Evergreen Invest",
         duration: "(01/2023 - 12/2024)",
@@ -165,7 +177,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 3,
+        id: 4,
         title: "Digital Marketing",
         company: "Agency",
         duration: "(05/2019 - 01/2023)",
@@ -177,7 +189,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 4,
+        id: 5,
         title: "Nhân viên Digital Marketing",
         company: "VNPAY Group – VNSHOP",
         duration: "(05/2018 - 04/2019)",
@@ -596,6 +608,18 @@ export const dictionaries = {
     experiences: [
       {
         id: 1,
+        title: "SEO Specialist",
+        company: "Thomasnet.com · Remote",
+        duration: "(06/2026 - Present)",
+        details: [
+          "Conduct technical SEO audits and recurring health checks for Thomasnet partners, reviewing crawlability and indexability, canonicals, redirects, internal links, structured data, and page performance.",
+          "Analyze Google Search Console, Screaming Frog crawl data, and PageSpeed Insights to identify, group, and prioritize issues by affected page group.",
+          "Turn findings into developer-ready recommendations that define affected pages, desired behavior, and acceptance criteria.",
+          "Collaborate with developers on technical SEO and GEO improvements for Thomasnet partners.",
+        ],
+      },
+      {
+        id: 2,
         title: "Digital Marketing",
         company: "Joy Homes Real Estate Joint Stock Company",
         duration: "(02/2025 - 04/2026)",
@@ -606,7 +630,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 2,
+        id: 3,
         title: "Digital Marketing / Performance Marketing",
         company: "Evergreen Invest Investment Joint Stock Company",
         duration: "(01/2023 - 12/2024)",
@@ -617,7 +641,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 3,
+        id: 4,
         title: "Digital Marketing",
         company: "Agency",
         duration: "(05/2019 - 01/2023)",
@@ -629,7 +653,7 @@ export const dictionaries = {
         ],
       },
       {
-        id: 4,
+        id: 5,
         title: "Digital Marketing Staff",
         company: "VNPAY Group – VNSHOP",
         duration: "(05/2018 - 04/2019)",
